@@ -1,0 +1,100 @@
+alias go=richgo
+alias vim='mvim -v'
+alias coauth='printf "Co-authored-by: %s" "$(git log --pretty=format:"%an <%ae>" -1000 | sort | uniq | fzf)" | pbcopy'
+alias ls="exa"
+alias cat="bat"
+alias k="kubectl"
+alias weather='curl  wttr.in/buenos_aires' # weather
+alias git_log="git log --graph --pretty=format:'%C(auto)%h%d (%ci) %cn <%ce> %s'"
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+export PATH="$PATH:$HOME/go/bin"
+export PATH="$PATH:$HOME/bin"
+export PATH="$PATH:$HOME/code/platform-tools"
+export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+export GO111MODULE=on  # Enable module mode
+export GOPATH=~/go
+export PATH="$PATH:$GOPATH/bin"
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+[ -f ~/.priv_bashrc ] && source ~/.priv_bashrc
+[ -f ~/etc/profile.d/bash_completion.sh ] && ~/etc/profile.d/bash_completion.sh
+
+set histdup='all'
+
+random() {
+ shuf -i 0-9 -n 1
+}
+
+function api_pod_exec {
+  ktx prod-ny5-core
+  r=$(random)
+  pod=$(kubectl -n api get pod -l "app=api" -o jsonpath="{.items[$r].metadata.name}")
+
+  echo " kubectl -n api get pod -l \"app=api\" "
+  echo " kubectl -n api exec -it $pod -- /bin/bash "
+
+ case "$1" in
+      "rc"      ) kubectl -n api exec -it $pod -- bundle exec rails c;;
+      "rails"   ) kubectl -n api exec -it $pod -- bundle exec rails c;;
+      *         ) kubectl -n api exec -it $pod -- /bin/bash;;
+  esac
+}
+
+
+function kshell() {
+  ktx prod-ny5-core
+  case "$1" in
+      "bas"      ) KNS="bas";      KAPP="bas";      KSHELL="sh";;
+      "embs"     ) KNS="embs";     KAPP="embs" ;    KSHELL="sh";;
+      "killbill" ) KNS="killbill"; KAPP="killbill"; KSHELL="bash";;
+      "kaui"     ) KNS="kaui";     KAPP="kaui";     KSHELL="bash";;
+      *          ) echo "Usage: kshell bas|embs|killbill|kaui" >&2; return 1;;
+  esac
+  kubectl -n "$KNS" exec -ti "$(kubectl -n "$KNS" get pod -l "k8s-app=$KAPP" -o jsonpath='{.items[0].metadata.name}')" -c $KAPP -- /bin/${KSHELL}
+}
+
+
+function bill_db_embs_pod {
+  ktx prod-dc13-bill
+  echo "Use:"
+  echo "export PGPASSWORD=\$EMBS_DATASTORE_PASSWORD"
+  echo "psql -w -U \$EMBS_DATASTORE_USER -p \$EMBS_DATASTORE_PORT -h \$EMBS_DATASTORE_HOST"
+  kubectl -n embs exec -it $(kubectl -n embs get pod -o jsonpath='{.items[0].metadata.name}') -c embs -- sh
+}
+
+
+function bill_db_bas_pod {
+  ktx prod-dc13-bill
+  echo "Use:"
+  echo "export PGPASSWORD=\$BAS_DATASTORE_PASSWORD"
+  echo "psql -w -U \$BAS_DATASTORE_USER -p \$BAS_DATASTORE_PORT -h \$BAS_DATASTORE_HOST"
+  kubectl -n bas exec -it $(kubectl -n bas get pod -o jsonpath='{.items[0].metadata.name}') -c bas -- sh
+}
+
+# kill_ports 3000
+function kill_ports() {
+  # kill $(lsof -ti:($1))
+  kill $(lsof -ti:$1)
+}
+
+# git_restore1 3000
+function git_restore1() {
+  echo "git restore --source master~1 $1"
+  git restore --source master~1  $1
+}
+
+function create_migrate_db() {
+  PGPASSWORD=postgres psql -h localhost -U postgres -p 5432 -c "CREATE DATABASE $1;"
+  PG_CONN=postgres://postgres:postgres@localhost:5432/$1?sslmode=disable
+  migrate -path=db/migrations/ -database ${PG_CONN} up
+}
+
+function remove_db() {
+  echo "if errors"
+  echo "PGPASSWORD=postgres psql -h localhost -U postgres -p 5432 -c \"SELECT pid FROM pg_stat_activity WHERE datname = '$1';\""
+  echo "docker exec -it it_db_1 kill -9 xxx"
+  PGPASSWORD=postgres psql -h localhost -U postgres -p 5432 -c "DROP DATABASE $1;"
+}
+

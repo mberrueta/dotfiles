@@ -75,7 +75,8 @@ setup_dependencies() {
   mkdir ~/.vim/tmp 2>/dev/null
 }
 
-
-setup_dependencies
+if [ $1 = "fresh" ]; then
+  setup_dependencies
+fi
 setup_symlinks
 
