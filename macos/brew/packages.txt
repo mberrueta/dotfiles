@@ -1,0 +1,28 @@
+bash-completion # command completions for the Bash shell
+bat # cat with colors
+git
+git-crypt # transparent encryption and decryption of files in a git repository.
+go
+golang-migrate
+grc
+grpcurl
+jq
+kns
+kubelogin
+kubernetes-cli
+openssl@1.1
+postgresql
+powerlevel9k # theme for ZSH which uses Powerline Fonts.
+protobuf
+protoc-gen-go
+python@3.9
+redis
+richgo # enrich go test outputs
+tldr # simplify the beloved man pages
+tmux
+tree
+util-linux
+yamllint
+yarn
+zsh
+
