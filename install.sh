@@ -56,7 +56,6 @@ setup_symlinks() {
         fi
     done
 }
-
 setup_dependencies() {
   info "Creating oh my zsh"
   if [ ! -d "$HOME/.oh-my-zsh/" ]; then
@@ -64,6 +63,17 @@ setup_dependencies() {
       sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
   else
       info "Already exists. skipping ~/.oh-my-zsh/"
+  fi
+
+  info "Creating tmux"
+  if [ ! -d "$HOME/.tmux/" ]; then
+      info "Creating ~/.tmux/"
+    #   git clone https://github.com/gpakosz/.tmux.git "$HOME/.tmux"
+      git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+    #   ln -sf "$HOME/.tmux/.tmux.conf" "$HOME/.tmux.conf"
+    #   ln -sf "$HOME/.tmux/.tmux.conf.local" "$HOME/.tmux.conf.local"
+  else
+      info "Already exists. skipping ~/.oh-my-tmux/"
   fi
 
   for p in  $(cat ./brew/packages.txt | sed 's/\#.*//')
@@ -75,8 +85,21 @@ setup_dependencies() {
   mkdir ~/.vim/tmp 2>/dev/null
 }
 
+update_all() {
+    curr=$(pwd)
+    brew && brew upgrade -Y
+    cd "$HOME/.tmux"
+    git checkout master
+    git pull --all
+}
+
 if [ $1 = "fresh" ]; then
   setup_dependencies
 fi
+
+if [ $1 = "update" ]; then
+  update_all
+fi
+
 setup_symlinks
 
