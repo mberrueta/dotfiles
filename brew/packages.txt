@@ -12,7 +12,7 @@ kubelogin
 kubernetes-cli
 openssl@1.1
 postgresql
-powerlevel9k # theme for ZSH which uses Powerline Fonts.
+powerlevel10k # theme for ZSH which uses Powerline Fonts.
 protobuf
 protoc-gen-go
 python@3.9
