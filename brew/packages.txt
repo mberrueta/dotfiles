@@ -6,18 +6,19 @@ go
 golang-migrate
 grc
 grpcurl
+imagemagick
 jq
 kns
 kubelogin
 kubernetes-cli
 openssl@1.1
 postgresql
-romkatv/powerlevel10k/powerlevel10k # theme for ZSH which uses Powerline Fonts.
 protobuf
 protoc-gen-go
 python@3.9
 redis
 richgo # enrich go test outputs
+romkatv/powerlevel10k/powerlevel10k # theme for ZSH which uses Powerline Fonts.
 tldr # simplify the beloved man pages
 tmux
 tree
@@ -25,4 +26,3 @@ util-linux
 yamllint
 yarn
 zsh
-
