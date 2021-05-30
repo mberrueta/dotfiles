@@ -8,6 +8,8 @@ set -g @plugin 'tmux-plugins/tmux-sensible'
 set -g @plugin 'dracula/tmux'
 # Switch from default fahrenheit to celsius:
 set -g @dracula-show-fahrenheit false
+set -g @dracula-show-network false
+set -g @dracula-show-location false
 # Enable powerline symbols:
 set -g @dracula-show-powerline true
 # Switch powerline symbols
@@ -37,7 +39,7 @@ set -g @dracula-day-month true
 ################################################
 
 
-
+set-window-option -g mode-keys vi
 ################################################
 # Key binding
 ################################################
@@ -45,22 +47,35 @@ set -g @dracula-day-month true
 set -g prefix C-a
 unbind C-b
 
+unbind \"
 bind | split-window -h
-bind \ split-window -v
+unbind %
+bind - split-window -v
+bind _ split-window -v
+
+# move windows (use w list)
+unbind p
+unbind n
+# move pane (use arrows)
+unbind o
+# suspend
+unbind C-z
+# move panes (use C-o)
+
+# Vim like copy and paste
+bind p paste-buffer
+bind-key -T copy-mode-vi 'v' send -X begin-selection     # Begin selection in copy mode.
+bind-key -T copy-mode-vi 'C-v' send -X rectangle-toggle  # Begin selection in copy mode.
+bind-key -T copy-mode-vi 'y' send -X copy-selection      # Yank selection in copy mode.
+# Also copy to system clipboard
+bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel 'xclip -sel clip -i'
+
+
+unbind-key    -T copy-mode-vi MouseDragEnd1Pane
 
 
 
-
-
-
-
-
-
-
-
-
-
-
+set -g mouse on
 
 
 

@@ -12,10 +12,12 @@ plugins=(
     git
     kube-ps1
     zsh-autosuggestions
-    zsh-syntax-highlighting
     docker
     docker-compose
 )
+
+# tooo slow
+# zsh-syntax-highlighting
 
 source $ZSH/oh-my-zsh.sh
 

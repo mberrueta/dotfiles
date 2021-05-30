@@ -6,6 +6,12 @@ alias cat="bat"
 alias k="kubectl"
 alias weather='curl  wttr.in/buenos_aires' # weather
 alias git_log="git log --graph --pretty=format:'%C(auto)%h%d (%ci) %cn <%ce> %s'"
+alias ..='cd ..'
+alias grep='grep --color=auto'
+alias tls='tmux ls'
+alias tns='tmux new-session -s' # tmux new -s myname
+alias tat='tmux attach -t' # tmux a -t myname
+alias tkt='tmux kill-session -t' # tmux kill-session -t myname
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
