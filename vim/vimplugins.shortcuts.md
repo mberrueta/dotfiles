@@ -23,5 +23,7 @@ tbd
 ## jpalardy/vim-slime
 
 C-c, C-c to
-## vim-multiple-cursors
+
+## splitjoin.vim
+
 

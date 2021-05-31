@@ -6,16 +6,6 @@ Brew packages (take more time)
 ./install.sh fresh
 ```
 
-'Just configs'
-'Just configs'
-'Just configs'
-'Just configs'
-'Just configs'
-"Just configs"
-"Just configs"
-  "Just configs"
-
-"Just configs"
 ```sh
 ./install.sh
 ```

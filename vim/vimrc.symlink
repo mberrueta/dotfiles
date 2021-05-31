@@ -12,7 +12,7 @@ Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'dracula/vim', { 'name': 'dracula' }
-
+Plugin 'andrewradev/splitjoin.vim'
 call vundle#end()            " required
 filetype plugin indent on    " required
 
