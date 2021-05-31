@@ -30,4 +30,7 @@ Shift+Cmd+C   Copy Mode
 /             search
 v             select
 $             end of the line
+
+
+:source-file ~/.tmux.conf # Reload config
 tmux list-keys

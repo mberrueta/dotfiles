@@ -2,7 +2,6 @@ alias go=richgo
 alias vim='mvim -v'
 alias coauth='printf "Co-authored-by: %s" "$(git log --pretty=format:"%an <%ae>" -1000 | sort | uniq | fzf)" | pbcopy'
 alias ls="exa"
-alias cat="bat"
 alias k="kubectl"
 alias weather='curl  wttr.in/buenos_aires' # weather
 alias git_log="git log --graph --pretty=format:'%C(auto)%h%d (%ci) %cn <%ce> %s'"
