@@ -14,6 +14,7 @@ w     list windows
 q         show pane numbers
 |/-       split window vert/horiz
 x         kill pane
+0..1      go to pane
 space     toggle horiz/vert
 arrows    go to pane
 z         toggle pane zoom
@@ -24,12 +25,9 @@ C-o       rotate panes
 
 [       enter copy mode
 v       enter selection mode
-# Iterm
-
-Shift+Cmd+C   Copy Mode
-/             search
-v             select
-$             end of the line
+/       search
+v       select
+$       end of the line
 
 
 :source-file ~/.tmux.conf # Reload config

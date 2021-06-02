@@ -13,17 +13,25 @@ C-t       toogle
 
 ## vim-surround
 
-ysiw'     surround in word `'`
-ds'       drop surround `'`
-cs'"      change surround from `'` to `"`
+ysiw"     surround in word "
+yss"      sorround in line "
+ds"       drop surround "
+cs\'"       change surround from \' to "
 
 ## vim-syntastic/syntastic
 
 tbd
+
 ## jpalardy/vim-slime
 
 C-c, C-c to
 
 ## splitjoin.vim
 
+gS    split
+gJ    join
 
+## tpope/vim-projectionist
+
+:Etype name     go to
+:A              alternate

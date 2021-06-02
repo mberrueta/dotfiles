@@ -98,14 +98,17 @@ background() {
 text=$(cat $DOTFILES/tmux/tmux.shortcuts.md)
 convert -font helvetica -fill white -pointsize 14  -draw "text 50, 50 '$text'"  ./backgrounds/maniac_mansion.jpg /tmp/t1.jpg
 text=$(cat $DOTFILES/vim/vim.shortcuts.md)
-convert -font helvetica -fill white -pointsize 14  -draw "text 500, 50 '$text'"  /tmp/t1.jpg /tmp/t1.jpg
+convert -font helvetica -fill white -pointsize 14  -draw "text 450, 50 '$text'"  /tmp/t1.jpg /tmp/t1.jpg
 text=$(cat $DOTFILES/vim/vimplugins.shortcuts.md)
-convert -font helvetica -fill white -pointsize 14  -draw "text 900, 50 '$text'"  /tmp/t1.jpg /tmp/t1.jpg
+convert -font helvetica -fill white -pointsize 14  -draw "text 750, 50 '$text'"  /tmp/t1.jpg /tmp/t1.jpg
 text=$(cat $DOTFILES/zsh/mac.shortcuts.md)
-convert -font helvetica -fill white -pointsize 14  -draw "text 900, 220 '$text'"  /tmp/t1.jpg /tmp/t1.jpg
-# open /tmp/t1.jpg
-osascript -e 'tell application "System Events" to tell every desktop to set picture to "/tmp/t1.jpg"'
-osascript -e 'tell application "Finder" to set desktop picture to POSIX file "/tmp/t1.jpg"'
+convert -font helvetica -fill white -pointsize 14  -draw "text 1100, 50 '$text'"  /tmp/t1.jpg /tmp/t1.jpg
+rm ~/Pictures/t1.jpg 2> /dev/null 
+cp /tmp/t1.jpg ~/Pictures/
+#open ~/Pictures/t1.jpg
+
+osascript -e 'tell application "Finder" to set desktop picture to POSIX file "~/Pictures/t1.jpg"'
+osascript -e 'tell application "System Events" to tell every desktop to set picture to "~/Pictures/t1.jpg"'
 
 }
 
@@ -119,4 +122,4 @@ if [ $1 = "update" ]; then
 fi
 
 setup_symlinks
-
+background

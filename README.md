@@ -11,3 +11,4 @@ Brew packages (take more time)
 ```
 
 https://github.com/nicknisi/dotfiles
+https://www.youtube.com/watch?v=kB2zSdVXT7k
