@@ -18,9 +18,9 @@ yss"      sorround in line "
 ds"       drop surround "
 cs\'"       change surround from \' to "
 
-## vim-syntastic/syntastic
+## dense-analysis/ale
 
-tbd
+:ALEFix   fix file
 
 ## jpalardy/vim-slime
 
@@ -35,3 +35,7 @@ gJ    join
 
 :Etype name     go to
 :A              alternate
+
+## mhinz/vim-grepper
+
+:GreeperGrep    text

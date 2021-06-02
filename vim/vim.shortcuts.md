@@ -4,11 +4,13 @@ h,j,k,l   left,up,down,right
 H,M,L,G   top,middle,bottom,last
 #gg       go to line number #
 w,e,$     next word (start next,last this),end 
-b,^       prev word,start  of line
 %         move to matching character (),{}, []
+b,^       prev word,start  of line
 ^E,^Y     Scroll down,up
 ^F,^B     Scroll down,up 1 page
-SHIFT DOWN  previous possition
+
+:sp, :vsp Split h,v window
+<C-w>j,h  Next window
 
 >>,<<     indent (move right,left) 
 yy        yank (copy)
