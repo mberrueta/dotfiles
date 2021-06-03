@@ -26,10 +26,11 @@ cs\'"       change surround from \' to "
 
 C-c, C-c to
 
-## splitjoin.vim
+## splitjoin.vim switch.vim
 
-gS    split
-gJ    join
+gS    split (:SplitjoinSplit)
+gJ    join (:SplitjoinJoin)
+gs    switch (:Switch)
 
 ## tpope/vim-projectionist
 

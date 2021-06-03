@@ -70,6 +70,10 @@
       "app/controllers/staff/{}_controller.rb"
     ]
   },
+  "lib/middleware/*.rb": {
+    "type": "middleware",
+    "alternate": []
+  },
   "spec/factories/*.rb": {
     "type": "factory",
     "alternate": [
@@ -78,6 +82,14 @@
   },
   "features/step_definitions/*_steps.rb": {
     "type": "feature_steps",
+    "alternate": []
+  },
+  "features/staff/*": {
+    "type": "staff_feature",
+    "alternate": []
+  },
+  "features/*": {
+    "type": "feature",
     "alternate": []
   }
 }

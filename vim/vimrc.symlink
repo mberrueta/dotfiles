@@ -19,6 +19,9 @@ Plugin 'tpope/vim-projectionist'
 Plugin 'tpope/vim-rails'
 Plugin 'dense-analysis/ale'
 Plugin 'mhinz/vim-grepper'
+Plugin 'thoughtbot/vim-rspec'
+Plugin 'tpope/vim-dispatch'
+Plugin 'ngmy/vim-rubocop'
 
 
 call vundle#end()            " required
@@ -172,3 +175,8 @@ nnoremap <Leader>* :Grepper -cword -noprompt<CR>
 " Search for the current selection
 nmap gs <plug>(GrepperOperator)
 xmap gs <plug>(GrepperOperator)
+
+let g:rspec_command = "Dispatch rspec {spec}"
+
+let g:vimrubocop_config = '.rubocop.yml'
+map <F6> :exe "!tmux send -t 1 'bundle exec rspec' Enter" 
