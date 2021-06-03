@@ -180,3 +180,4 @@ let g:rspec_command = "Dispatch rspec {spec}"
 
 let g:vimrubocop_config = '.rubocop.yml'
 map <F6> :exe "!tmux send -t 1 'bundle exec rspec' Enter" 
+map <F7> :exe "!tmux send -t 1 'rubocop && rails_best_practices' Enter" 
