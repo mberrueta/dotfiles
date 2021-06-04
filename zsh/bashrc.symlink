@@ -1,5 +1,6 @@
+#!/bin/sh
+
 alias go=richgo
-alias vim='mvim -v'
 alias coauth='printf "Co-authored-by: %s" "$(git log --pretty=format:"%an <%ae>" -1000 | sort | uniq | fzf)" | pbcopy'
 alias ls="exa"
 alias k="kubectl"
@@ -11,6 +12,8 @@ alias tls='tmux ls'
 alias tns='tmux new-session -s' # tmux new -s myname
 alias tat='tmux attach -t' # tmux a -t myname
 alias tkt='tmux kill-session -t' # tmux kill-session -t myname
+alias open_api=~/.config/dotfiles/tmux/api_layout.sh
+alias open_api_scripts=~/.config/dotfiles/tmux/scripts_layout.sh
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"

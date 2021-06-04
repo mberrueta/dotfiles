@@ -54,6 +54,11 @@ setup_symlinks() {
             ln -sv "$config" "$target"
         fi
     done
+
+    mkdir $HOME/.config/nvim || true
+    mv $HOME/.nvim $HOME/.config/nvim/init.vim
+    gem install solargraph
+    nvim +PlugInstall +UpdateRemotePlugins +qa
 }
 
 setup_dependencies() {
@@ -83,6 +88,9 @@ setup_dependencies() {
   done
 
   mkdir ~/.vim/tmp 2>/dev/null
+
+  curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 }
 
 update_all() {
@@ -103,7 +111,7 @@ text=$(cat $DOTFILES/vim/vimplugins.shortcuts.md)
 convert -font helvetica -fill white -pointsize 14  -draw "text 750, 50 '$text'"  /tmp/t1.jpg /tmp/t1.jpg
 text=$(cat $DOTFILES/zsh/mac.shortcuts.md)
 convert -font helvetica -fill white -pointsize 14  -draw "text 1100, 50 '$text'"  /tmp/t1.jpg /tmp/t1.jpg
-rm ~/Pictures/t1.jpg 2> /dev/null 
+rm ~/Pictures/t1.jpg 2> /dev/null
 cp /tmp/t1.jpg ~/Pictures/
 #open ~/Pictures/t1.jpg
 

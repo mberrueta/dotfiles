@@ -55,7 +55,7 @@ bind _ split-window -v -c "#{pane_current_path}"
 
 # move windows (use w list)
 unbind p
-unbind n
+# unbind n
 # move pane (use arrows)
 unbind o
 # suspend

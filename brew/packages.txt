@@ -11,6 +11,7 @@ jq
 kns
 kubelogin
 kubernetes-cli
+neovim
 openssl@1.1
 postgresql
 protobuf

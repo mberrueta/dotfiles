@@ -22,7 +22,7 @@ Plugin 'mhinz/vim-grepper'
 Plugin 'thoughtbot/vim-rspec'
 Plugin 'tpope/vim-dispatch'
 Plugin 'ngmy/vim-rubocop'
-
+Plugin 'dyng/ctrlsf.vim'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -84,11 +84,10 @@ set listchars=tab:→\ ,space:·,nbsp:␣,trail:•,eol:¶,precedes:«,extends:�
 
 " Show line numbers
 set number
-set relativenumber
+" set relativenumber
 " Prevent mouse select relative numbers
 set mouse=a
 " Set status line display
-set statusline=%f\ [POS=%l,%v][%p%%]\ [BUFFER=%n]\
 
 
 " Encoding
@@ -140,16 +139,17 @@ let g:slime_default_config = {'socket_name': 'default', 'target_pane': '{last}'}
 
 
 " https://github.com/vim-syntastic/syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+set statusline=%f\ [POS=%l,%v]\ [%p%%]\ [BUFFER=%n]\
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
 " let g:syntastic_always_populate_loc_list = 1
 " let g:syntastic_auto_loc_list = 1
 " let g:syntastic_check_on_open = 1
 " let g:syntastic_check_on_wq = 0
 "
-"
-
+highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+match OverLength /\%101v.\+/
 "
 nnoremap <C-k> :m-2<CR>
 inoremap <C-k> <Esc>:m-2<CR>
@@ -179,5 +179,17 @@ xmap gs <plug>(GrepperOperator)
 let g:rspec_command = "Dispatch rspec {spec}"
 
 let g:vimrubocop_config = '.rubocop.yml'
-map <F6> :exe "!tmux send -t 1 'bundle exec rspec' Enter" 
-map <F7> :exe "!tmux send -t 1 'rubocop && rails_best_practices' Enter" 
+map <F6> :exe "!tmux send -t 1 'bundle exec rspec -f d ' %  Enter"
+map <F7> :exe "!tmux send -t 1 'rubocop && rails_best_practices' Enter"
+
+" Automatically removing all trailing whitespace
+autocmd BufWritePre * %s/\s\+$//e
+
+" Enable CursorLine
+set cursorline
+" Default Colors for CursorLine
+highlight  CursorLine ctermbg=Black ctermfg=None
+"Change Color when entering Insert Mode
+autocmd InsertEnter * highlight  CursorLine ctermbg=94 ctermfg=White
+" Revert Color to default when leaving Insert Mode
+autocmd InsertLeave * highlight  CursorLine ctermbg=Black ctermfg=None
