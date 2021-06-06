@@ -9,10 +9,14 @@
     "type": "model_indexer",
     "alternate": [
       "app/models/indexers/{}_indexer.rb"
-    ]
+      ]
   },
   "app/models/*.rb": {
     "type": "model",
+    "template": [
+      "class {camelcase|capitalize}",
+      "end"
+    ],
     "alternate": [
       "spec/models/{}_spec.rb",
       "spec/factories/{plural}.rb"
@@ -20,6 +24,17 @@
   },
   "spec/models/*_spec.rb": {
     "type": "model_spec",
+    "template": [
+      "RSpec.describe {camelcase|capitalize} do",
+      "  describe \"#xx\" do",
+      "    let!(:yy) { create(:zzz) }",
+      "    subject { create(:%S) }",
+      "    context \"when something\"",
+      "      it { expect(subject.xx).to eq(0) }",
+      "    end",
+      "  end",
+      "end"
+    ],
     "alternate": [
       "app/models/{}.rb"
     ]
