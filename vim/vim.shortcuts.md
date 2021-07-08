@@ -19,6 +19,7 @@ v,V,C-q   selection: norm, line, block
 yy,dd     yank, cut
 p,P       paste: after,before
 >>,<<     indent (move right,left)
+zc, zo    fold/unfold block
 gJ        join lines
 V         select line
 ~         switch case
@@ -30,6 +31,8 @@ n,N       repeat search in same/opposite dir
 :g/regex/d      delete all lines with regex
 u/C-r           undo/redo
 .               repeat last command
+
+
 
 ## Text objects
 

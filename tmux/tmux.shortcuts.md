@@ -9,17 +9,20 @@ d     detach from session
 c/&   creates/kill window
 ,     rename current window
 w     list windows
+0..1      go to pane
+
 ## Working with Panes
 
-q         show pane numbers
 |/-       split window vert/horiz
 x         kill pane
-0..1      go to pane
 space     toggle horiz/vert
 arrows    go to pane
 z         toggle pane zoom
 C-Arrows  resize
 C-o       rotate panes
+{         move the current pane to next
+;         go to last pane
+tab       next pane
 
 ## Copy mode
 

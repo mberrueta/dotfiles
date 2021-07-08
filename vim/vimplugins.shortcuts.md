@@ -7,9 +7,9 @@ C-r       to switch to regexp mode.
 C-t, C-x  open in a new tab/split.
 C-z       to mark/unmark multiple files <c-o> (open)
 
-## nerdtree
+## git
 
-C-t       toogle
+C-g       view changes
 
 ## vim-surround
 
@@ -40,3 +40,8 @@ gs    switch (:Switch)
 ## mhinz/vim-grepper
 
 :GreeperGrep    text
+
+## Nerd Commenter
+
+\ci Toogle comment
+\cA Add comment to end

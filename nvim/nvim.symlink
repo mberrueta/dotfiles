@@ -14,18 +14,37 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ 'do': 'bash install.sh',
     \ }
 
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'neoclide/coc-solargraph'
-
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plug 'ryanoasis/vim-devicons'
-Plug 'airblade/vim-gitgutter'
-
+" ruby
+" =============
+Plug 'AndrewRadev/switch.vim'           " { :foo => true } to { foo: true }
+Plug 'andrewradev/splitjoin.vim'        " single line to multiplie { ... } , do end
+Plug 'dense-analysis/ale'               " Asynchronous Lint Engine
+Plug 'ngmy/vim-rubocop'
 Plug 'preservim/nerdcommenter'
-"Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+Plug 'thoughtbot/vim-rspec'
+Plug 'tpope/vim-endwise'                " fix do,if end blocks
+Plug 'tpope/vim-projectionist'          " define types of files, models, controllers etc
+Plug 'tpope/vim-rails'
+Plug 'tpope/vim-surround'               " change single double quotes
+Plug 'vim-ruby/vim-ruby'
 
-" Plug 'christoomey/vim-tmux-navigator'
+Plug 'airblade/vim-gitgutter'           " show uncommited flags
+Plug 'jpalardy/vim-slime'               " Execute external shell
+Plug 'kien/ctrlp.vim'                   " Open files
+
+
+Plug 'dracula/vim', { 'name': 'dracula' }
+Plug 'ryanoasis/vim-devicons'
+
+" Text editor
+Plug 'dyng/ctrlsf.vim'                  " search like vs-code
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'tpope/vim-repeat'                 " allow `.` with plugins
+Plug 'sudormrfbin/cheatsheet.nvim'
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzy-native.nvim'
 
 " Initialize plugin system
 call plug#end()
@@ -35,49 +54,97 @@ call plug#end()
 set hidden
 
 let g:LanguageClient_serverCommands = {
-    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
     \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
-    \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
     \ 'python': ['/usr/local/bin/pyls'],
     \ 'ruby': ['~/.rbenv/shims/solargraph', 'stdio'],
     \ }
 
-let g:NERDTreeIgnore = ['^node_modules$']
 " ctrlp ignore the same than git
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 
 set smarttab
 set cindent
-set tabstop=2
-set shiftwidth=2
-" always uses spaces instead of tab characters
-set expandtab
-
-
-" sync open file with NERDTree
-" " Check if NERDTree is open or active
-function! IsNERDTreeOpen()
-  return exists("t:NERDTreeBufName") && (bufwinnr(t:NERDTreeBufName) != -1)
-endfunction
-
-" Call NERDTreeFind iff NERDTree is active, current window contains a modifiable
-" file, and we're not in vimdiff
-function! SyncTree()
-  if &modifiable && IsNERDTreeOpen() && strlen(expand('%')) > 0 && !&diff
-    NERDTreeFind
-    wincmd p
-  endif
-endfunction
-
-" Highlight currently open buffer in NERDTree
-autocmd BufEnter * call SyncTree()
-
- let mapleader = ","
-
-vmap ++ <plug>NERDCommenterToggle
-nmap ++ <plug>NERDCommenterToggle
-nmap <C-g> <Plug>(GitGutterPreviewHunk)
 set updatetime=100
+set colorcolumn=125
+set foldmethod=indent
+
+" MAPS
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_show_hidden = 1
+let g:ctrlp_use_caching = 0
+
+let g:rspec_command = "Dispatch rspec {spec}"
+let g:slime_default_config = {'socket_name': 'default', 'target_pane': '{last}'}
+let g:slime_target = 'tmux'
+let g:vimrubocop_config = '.rubocop.yml'
+
+
+let g:switch_mapping = ''
+map rs :Switch <CR>
+
+" Move lines up&down
+inoremap <C-j> <Esc>:m+<CR>
+nnoremap <C-j> :m+<CR>
+inoremap <C-k> <Esc>:m-2<CR>
+nnoremap <C-k> :m-2<CR>
+
+" run in other windows
+map <F6> :exe "!tmux send -t 1 'bundle exec rspec -f d ' %  Enter"
+map <F7> :exe "!tmux send -t 1 'rubocop && rails_best_practices' Enter"
+
+" current path
+nmap cp :let @+ = expand("%")<cr>
+nmap <C-/> <plug>NERDCommenterToggle
+vmap <C-/> <plug>NERDCommenterToggle
+
+nmap <C-g> <Plug>(GitGutterPreviewHunk)
+
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'json': ['jq'],
+\   'javascript': ['eslint'],
+\}
+
+packadd! dracula
+syntax enable
+colorscheme dracula
+
+" let g:mapleader = "\"
+let g:maplocalleader = ','
+
+" Mappings to access buffers (don't use "\p" because a
+" delay before pressing "p" would accidentally paste).
+" \l       : list buffers
+" \b \f \g : go back/forward/last-used
+" \1 \2 \3 : go to buffer 1/2/3 etc
+nnoremap <Leader>l :ls<CR>
+nnoremap <Leader>b :bp<CR>
+nnoremap <Leader>f :bn<CR>
+nnoremap <Leader>g :e#<CR>
+nnoremap <Leader>1 :1b<CR>
+nnoremap <Leader>2 :2b<CR>
+nnoremap <Leader>3 :3b<CR>
+nnoremap <Leader>4 :4b<CR>
+nnoremap <Leader>5 :5b<CR>
+nnoremap <Leader>6 :6b<CR>
+nnoremap <Leader>7 :7b<CR>
+nnoremap <Leader>8 :8b<CR>
+nnoremap <Leader>9 :9b<CR>
+nnoremap <Leader>0 :10b<CR>
+" It's useful to show the buffer number in the status line.
+set laststatus=2 statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
+
+let g:NERDCreateDefaultMappings = 1
+let g:NERDSpaceDelims = 1
+let g:NERDCompactSexyComs = 1
+let g:NERDDefaultAlign = 'left'
+let g:NERDAltDelims_java = 1
+let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
+let g:NERDCommentEmptyLines = 1
+let g:NERDTrimTrailingWhitespace = 1
+let g:NERDToggleCheckAllLines = 1
 
 
 
+lua require('init')

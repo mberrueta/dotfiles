@@ -1,6 +1,7 @@
 # List of plugins
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-sensible'
+set -g @plugin 'tmux-plugins/tmux-yank'
 
 ################################################
 # https://draculatheme.com/tmux
@@ -52,30 +53,26 @@ bind | split-window -h -c "#{pane_current_path}"
 unbind %
 bind - split-window -v -c "#{pane_current_path}"
 bind _ split-window -v -c "#{pane_current_path}"
-
+bind -r Tab select-pane -t :.+
 # move windows (use w list)
 unbind p
 # unbind n
 # move pane (use arrows)
-unbind o
+# unbind o
 # suspend
 unbind C-z
-# move panes (use C-o)
-
-# Vim like copy and paste
-bind p paste-buffer
-bind-key -T copy-mode-vi 'v' send -X begin-selection     # Begin selection in copy mode.
-bind-key -T copy-mode-vi 'C-v' send -X rectangle-toggle  # Begin selection in copy mode.
-bind-key -T copy-mode-vi 'y' send -X copy-selection      # Yank selection in copy mode.
-# Also copy to system clipboard
-bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel 'xclip -sel clip -i'
-
-
-unbind-key    -T copy-mode-vi MouseDragEnd1Pane
-set -g mouse on
-
 
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
 run '~/.tmux/plugins/tpm/tpm'
 
+
+# --------------------------------
+# Turn on the Mouse Support - defaults seem good
+# --------------------------------
+
+# set-option -g default-command "reattach-to-user-namespace -l zsh" # or bash...
+# bind C-c run "tmux save-buffer - | reattach-to-user-namespace pbcopy"
+# bind C-v run "reattach-to-user-namespace pbpaste | tmux load-buffer - && tmux paste-buffer"
+# unbind -T copy-mode MouseDragEnd1Pane
+# unbind-key -T copy-mode-vi MouseDragEnd1Pane
 

@@ -1,92 +1,35 @@
 set nocompatible              " be iMproved, required
-filetype off                  " required
-
-set rtp+=~/.vim/bundle/Vundle.vim
-
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'jpalardy/vim-slime'
-Plugin 'kien/ctrlp.vim'
-Plugin 'scrooloose/nerdtree'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-surround'
-Plugin 'dracula/vim', { 'name': 'dracula' }
-Plugin 'andrewradev/splitjoin.vim'
-Plugin 'AndrewRadev/switch.vim'
-Plugin 'vim-ruby/vim-ruby'
-Plugin 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plugin 'tpope/vim-projectionist'
-Plugin 'tpope/vim-rails'
-Plugin 'dense-analysis/ale'
-Plugin 'mhinz/vim-grepper'
-Plugin 'thoughtbot/vim-rspec'
-Plugin 'tpope/vim-dispatch'
-Plugin 'ngmy/vim-rubocop'
-Plugin 'dyng/ctrlsf.vim'
-
-call vundle#end()            " required
-filetype plugin indent on    " required
-
-
-" Set compatibility to Vim only.
-set nocompatible
-
-" Helps force plug-ins to load correctly when it is turned back on below.
-filetype off
-
 " Turn on syntax highlighting.
 syntax on
-
-" For plug-ins to load correctly.
-filetype plugin indent on
-
-" Turn off modelines
-" set modelines=0
-
 " Automatically wrap text that extends beyond the screen length.
 set wrap
-" Vim's auto indentation feature does not work properly with text copied from outside of Vim. Press the <F2> key to toggle paste mode on/off.
-" nnoremap <F2> :set invpaste paste?<CR>
-" imap <F2> <C-O>:set invpaste paste?<CR>
-" set pastetoggle=<F2>
-
-" Uncomment below to set the max textwidth. Use a value corresponding to the width of your screen.
-" set textwidth=79
 set formatoptions=tcqrn1
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 set expandtab
 set noshiftround
-
 " Display 5 lines above/below the cursor when scrolling with a mouse.
 set scrolloff=5
 " Fixes common backspace problems
 set backspace=indent,eol,start
-
 " Speed up scrolling in Vim
 set ttyfast
-
 " Display options
 set showmode
 set showcmd
-
 " Highlight matching pairs of brackets. Use the '%' character to jump between them.
 set matchpairs+=<:>
-
 " Display different types of white spaces.
 set list
 " set listchars=tab:›\ ,trail:•,extends:›\,nbsp:.
 set listchars=tab:→\ ,space:·,nbsp:␣,trail:•,eol:¶,precedes:«,extends:»
-
 " Show line numbers
 set number
 " set relativenumber
 " Prevent mouse select relative numbers
 set mouse=a
 " Set status line display
-
-
 " Encoding
 set encoding=utf-8
 " Highlight matching search patterns
@@ -95,89 +38,16 @@ set hlsearch
 set incsearch
 " Include matching uppercase words with lowercase search term
 set ignorecase
-" Include only uppercase words with uppercase search term
-" set smartcase
-
-" Store info from no more than 100 files at a time, 9999 lines of text, 100kb of data. Useful for copying large amounts of data between files.
+" Store info from no more than 100 files at a time, 9999 lines of text, 100kb of data
 set viminfo='100,<9999,s100
-
-" Map the <Space> key to toggle a selected fold opened/closed.
-" nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
-" vnoremap <Space> zf
-
-" Automatically save and load folds
-" autocmd BufWinLeave *.* mkview
-" autocmd BufWinEnter *.* silent loadview"
-
-packadd! dracula
-syntax enable
-colorscheme dracula
-
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_use_caching = 0
-let g:ctrlp_show_hidden = 1
-
-
-
 " swap files directory (current is the default)
 set directory^=$HOME/.vim/tmp//
-
-" MAPS
-nnoremap <C-t> :NERDTreeToggle<CR>
-
 set clipboard=unnamed
-
-let g:slime_target = 'tmux'
-let g:slime_default_config = {'socket_name': 'default', 'target_pane': '{last}'}
-
-:set cursorline
-
-
-
+set cursorline
 " https://github.com/vim-syntastic/syntastic
 set statusline=%f\ [POS=%l,%v]\ [LIN:%{line('$')}]
 set laststatus=2 " show the statusline
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 1
-" let g:syntastic_check_on_open = 1
-" let g:syntastic_check_on_wq = 0
 "
-highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-match OverLength /\%101v.\+/
-"
-nnoremap <C-k> :m-2<CR>
-inoremap <C-k> <Esc>:m-2<CR>
-nnoremap <C-j> :m+<CR>
-inoremap <C-j> <Esc>:m+<CR>
-
-
-let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'json': ['jq'],
-\   'javascript': ['eslint'],
-\}
-
-let mapleader = ","
-let g:grepper       = {}
-let g:grepper.tools = ['grep', 'git', 'rg']
-
-" Search for the current word
-nnoremap <Leader>* :Grepper -cword -noprompt<CR>
-
-" Search for the current selection
-nmap gs <plug>(GrepperOperator)
-xmap gs <plug>(GrepperOperator)
-
-let g:rspec_command = "Dispatch rspec {spec}"
-
-let g:vimrubocop_config = '.rubocop.yml'
-map <F6> :exe "!tmux send -t 1 'bundle exec rspec -f d ' %  Enter"
-map <F7> :exe "!tmux send -t 1 'rubocop && rails_best_practices' Enter"
-
 " Automatically removing all trailing whitespace
 autocmd BufWritePre * %s/\s\+$//e
 

@@ -26,12 +26,14 @@ export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/b
 export GO111MODULE=on  # Enable module mode
 export GOPATH=~/go
 export PATH="$PATH:$GOPATH/bin"
+export PATH="$PATH:$HOME/bin/nvim/bin/"
+# export COLUMNS=1000
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 [ -f ~/.priv_bashrc ] && source ~/.priv_bashrc
 [ -f ~/etc/profile.d/bash_completion.sh ] && ~/etc/profile.d/bash_completion.sh
 
-set histdup='all'
+set histdup='all' # duplicate entries in the history
 
 random() {
  shuf -i 0-9 -n 1
@@ -108,3 +110,4 @@ function remove_db() {
   PGPASSWORD=postgres psql -h localhost -U postgres -p 5432 -c "DROP DATABASE $1;"
 }
 
+tput smam # disables line wrapping. (trimmed text https://apple.stackexchange.com/questions/90392/disable-line-wrapping-for-output-in-the-terminal)
