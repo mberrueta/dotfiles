@@ -110,4 +110,13 @@ function remove_db() {
   PGPASSWORD=postgres psql -h localhost -U postgres -p 5432 -c "DROP DATABASE $1;"
 }
 
+function clearDockerLog(){
+  dockerLogFile=$(docker inspect $1 | grep -G '\"LogPath\": \"*\"' | sed -e 's/.*\"LogPath\": \"//g' | sed -e 's/\",//g')
+  rmCommand="rm $dockerLogFile"
+  screen -d -m -S dockerlogdelete ~/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux/tty
+  screen -S dockerlogdelete -p 0 -X stuff $"$rmCommand"
+  screen -S dockerlogdelete -p 0 -X stuff $'\n'
+  screen -S dockerlogdelete -X quit
+}
+
 tput smam # disables line wrapping. (trimmed text https://apple.stackexchange.com/questions/90392/disable-line-wrapping-for-output-in-the-terminal)
