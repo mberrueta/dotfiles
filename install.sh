@@ -55,13 +55,35 @@ setup_symlinks() {
         fi
     done
 
-    mkdir $HOME/.config/nvim || true
-    mv $HOME/.nvim $HOME/.config/nvim/init.vim
+    # mkdir $HOME/.config/nvim || true
+    # mv $HOME/.nvim $HOME/.config/nvim/init.vim
+
+
     gem install solargraph
-    nvim +PlugInstall +UpdateRemotePlugins +qa
+    # nvim +PlugInstall +UpdateRemotePlugins +qa
 }
 
 setup_dependencies() {
+  brew install --cask iterm2
+
+  git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
+
+  brew install python3
+  pip3 install powerline-status
+  pip3 show powerline-status
+
+  cp -r /opt/homebrew/lib/python3.9/site-packages/powerline/config_files/ ~/.config/powerline/
+  git clone git@github.com:powerline/fonts.git ~/.config
+  ~/.config/fonts/install.sh
+
+  p10k configure
+
+
+  # RVM
+  curl -sSL https://rvm.io/pkuczynski.asc | gpg --import -
+  curl -sSL https://get.rvm.io | bash -s stable --rails
+
+
   info "Creating oh my zsh"
   if [ ! -d "$HOME/.oh-my-zsh/" ]; then
       info "Creating ~/.oh-my-zsh/"
@@ -70,16 +92,16 @@ setup_dependencies() {
       info "Already exists. skipping ~/.oh-my-zsh/"
   fi
 
-  info "Creating tmux"
-  if [ ! -d "$HOME/.tmux/" ]; then
-      info "Creating ~/.tmux/"
-    #   git clone https://github.com/gpakosz/.tmux.git "$HOME/.tmux"
-      git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-    #   ln -sf "$HOME/.tmux/.tmux.conf" "$HOME/.tmux.conf"
-    #   ln -sf "$HOME/.tmux/.tmux.conf.local" "$HOME/.tmux.conf.local"
-  else
-      info "Already exists. skipping ~/.oh-my-tmux/"
-  fi
+#   info "Creating tmux"
+#   if [ ! -d "$HOME/.tmux/" ]; then
+#       info "Creating ~/.tmux/"
+#     #   git clone https://github.com/gpakosz/.tmux.git "$HOME/.tmux"
+#       git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+#     #   ln -sf "$HOME/.tmux/.tmux.conf" "$HOME/.tmux.conf"
+#     #   ln -sf "$HOME/.tmux/.tmux.conf.local" "$HOME/.tmux.conf.local"
+#   else
+#       info "Already exists. skipping ~/.oh-my-tmux/"
+#   fi
 
   for p in  $(cat ./brew/packages.txt | sed 's/\#.*//')
   do
@@ -89,8 +111,18 @@ setup_dependencies() {
 
   mkdir ~/.vim/tmp 2>/dev/null
 
-  curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+#   curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+#     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+
+  open https://docs.docker.com/docker-for-mac/install/
+  open https://docs.docker.com/docker-for-mac/apple-silicon/
+  open https://rectangleapp.com
+  open https://apps.apple.com/es/app/amphetamine/id937984704?mt=12
+  open https://monosnap.com/pay
+  
+
+
 }
 
 update_all() {
@@ -130,4 +162,4 @@ if [ $1 = "update" ]; then
 fi
 
 setup_symlinks
-background
+# background

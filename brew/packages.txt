@@ -5,6 +5,7 @@ git-crypt # transparent encryption and decryption of files in a git repository.
 go
 golang-migrate
 grc
+gpg
 grpcurl
 imagemagick
 jq
@@ -27,3 +28,8 @@ util-linux
 yamllint
 yarn
 zsh
+fzf
+zsh-completion
+bash-completion
+python3
+powerline-status
