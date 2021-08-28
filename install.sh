@@ -66,6 +66,8 @@ setup_symlinks() {
 setup_dependencies() {
   brew install --cask iterm2
 
+  # ohmyzsh
+  sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
   git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
 
   brew install python3
@@ -115,13 +117,21 @@ setup_dependencies() {
 #     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 
-  open https://docs.docker.com/docker-for-mac/install/
-  open https://docs.docker.com/docker-for-mac/apple-silicon/
-  open https://rectangleapp.com
+  # open https://docs.docker.com/docker-for-mac/install/
+  # open https://docs.docker.com/docker-for-mac/apple-silicon/
+  # open https://rectangleapp.com
   open https://apps.apple.com/es/app/amphetamine/id937984704?mt=12
   open https://monosnap.com/pay
-  
 
+  brew install --cask rectangle
+  brew install --cask slack
+  brew install --cask whatsapp
+  brew install --cask docker
+  brew install --cask dbeaver-community
+
+  npm install --global git-open
+
+  git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
 
 }
 

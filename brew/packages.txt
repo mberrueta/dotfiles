@@ -1,23 +1,32 @@
+archey # displays your system information
+awscli # official aws client
+bash-completion
 bash-completion # command completions for the Bash shell
 bat # cat with colors
+docker
+fzf
 git
 git-crypt # transparent encryption and decryption of files in a git repository.
 go
 golang-migrate
-grc
 gpg
+grc
 grpcurl
+htop # Improved top (interactive process viewer)
 imagemagick
 jq
 kns
 kubelogin
 kubernetes-cli
+midnight-commander
 neovim
 openssl@1.1
 postgresql
+powerline-status
 protobuf
 protoc-gen-go
 python@3.9
+python3
 redis
 richgo # enrich go test outputs
 romkatv/powerlevel10k/powerlevel10k # theme for ZSH which uses Powerline Fonts.
@@ -25,11 +34,9 @@ tldr # simplify the beloved man pages
 tmux
 tree
 util-linux
+wget
 yamllint
 yarn
 zsh
-fzf
+zsh-autosuggestions
 zsh-completion
-bash-completion
-python3
-powerline-status

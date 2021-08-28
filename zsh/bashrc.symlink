@@ -131,7 +131,7 @@ tput smam # disables line wrapping. (trimmed text https://apple.stackexchange.co
 powerline-daemon -q
 POWERLINE_BASH_CONTINUATION=1
 POWERLINE_BASH_SELECT=1
-source /opt/homebrew/lib/python3.9/site-packages/powerline/bindings/bash/powerline.sh
+# source /opt/homebrew/lib/python3.9/site-packages/powerline/bindings/bash/powerline.sh
 
 export HISTCONTROL=ignoreboth:erasedups
 
