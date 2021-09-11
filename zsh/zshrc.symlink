@@ -36,7 +36,7 @@ source $HOME/.bashrc
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 export PATH="$PATH:$HOME/anaconda3/bin"
-export PATH="$PATH:/usr/bin:/usr/sbin:/bin:/sbin"
+export PATH="$PATH:/usr/bin:/usr/sbin:/bin:/sbin:/usr/local/sbin"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -88,7 +88,8 @@ tput smam # disables line wrapping. (trimmed text https://apple.stackexchange.co
 export PATH="/usr/local/opt/mysql-client/bin:$PATH"
 export PATH="/opt/homebrew/opt/imagemagick@6/bin:$PATH"
 
-set editing-mode vi
-set -o vi
+
+# set editing-mode vi
+# set -o vi
 
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=off

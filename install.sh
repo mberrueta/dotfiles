@@ -128,6 +128,7 @@ setup_dependencies() {
   brew install --cask whatsapp
   brew install --cask docker
   brew install --cask dbeaver-community
+  brew install --cask vlc
 
   npm install --global git-open
 
@@ -145,12 +146,16 @@ update_all() {
 
 background() {
 
-text=$(cat $DOTFILES/tmux/tmux.shortcuts.md)
-convert -font helvetica -fill white -pointsize 14  -draw "text 50, 50 '$text'"  ./backgrounds/maniac_mansion.jpg /tmp/t1.jpg
-text=$(cat $DOTFILES/vim/vim.shortcuts.md)
-convert -font helvetica -fill white -pointsize 14  -draw "text 450, 50 '$text'"  /tmp/t1.jpg /tmp/t1.jpg
-text=$(cat $DOTFILES/vim/vimplugins.shortcuts.md)
-convert -font helvetica -fill white -pointsize 14  -draw "text 750, 50 '$text'"  /tmp/t1.jpg /tmp/t1.jpg
+DOTFILES="$(pwd)"
+export LC_CTYPE="en_US.UTF-8"
+text=$(cat $DOTFILES/zsh/zsh.shortcuts.md)
+convert -font helvetica -fill white -pointsize 14  -draw "text 100, 50 '$text'"  ./backgrounds/maniac_mansion.jpg /tmp/t1.jpg
+# text=$(cat $DOTFILES/tmux/tmux.shortcuts.md)
+# convert -font helvetica -fill white -pointsize 14  -draw "text 50, 50 '$text'"  ./backgrounds/maniac_mansion.jpg /tmp/t1.jpg
+# text=$(cat $DOTFILES/vim/vim.shortcuts.md)
+# convert -font helvetica -fill white -pointsize 14  -draw "text 450, 50 '$text'"  /tmp/t1.jpg /tmp/t1.jpg
+# text=$(cat $DOTFILES/vim/vimplugins.shortcuts.md)
+# convert -font helvetica -fill white -pointsize 14  -draw "text 750, 50 '$text'"  /tmp/t1.jpg /tmp/t1.jpg
 text=$(cat $DOTFILES/zsh/mac.shortcuts.md)
 convert -font helvetica -fill white -pointsize 14  -draw "text 1100, 50 '$text'"  /tmp/t1.jpg /tmp/t1.jpg
 rm ~/Pictures/t1.jpg 2> /dev/null

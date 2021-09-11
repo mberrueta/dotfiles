@@ -19,6 +19,7 @@ kns
 kubelogin
 kubernetes-cli
 midnight-commander
+mysql@5.7
 neovim
 openssl@1.1
 postgresql
@@ -27,9 +28,11 @@ protobuf
 protoc-gen-go
 python@3.9
 python3
+rabbitmq
 redis
 richgo # enrich go test outputs
 romkatv/powerlevel10k/powerlevel10k # theme for ZSH which uses Powerline Fonts.
+telnet
 tldr # simplify the beloved man pages
 tmux
 tree
