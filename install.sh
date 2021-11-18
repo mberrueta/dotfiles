@@ -157,7 +157,7 @@ convert -font helvetica -fill white -pointsize 14  -draw "text 100, 50 '$text'" 
 # text=$(cat $DOTFILES/vim/vimplugins.shortcuts.md)
 # convert -font helvetica -fill white -pointsize 14  -draw "text 750, 50 '$text'"  /tmp/t1.jpg /tmp/t1.jpg
 text=$(cat $DOTFILES/zsh/mac.shortcuts.md)
-convert -font helvetica -fill white -pointsize 14  -draw "text 1100, 50 '$text'"  /tmp/t1.jpg /tmp/t1.jpg
+convert -font helvetica -fill white -pointsize 14  -draw "text 470, 50 '$text'"  /tmp/t1.jpg /tmp/t1.jpg
 rm ~/Pictures/t1.jpg 2> /dev/null
 cp /tmp/t1.jpg ~/Pictures/
 #open ~/Pictures/t1.jpg

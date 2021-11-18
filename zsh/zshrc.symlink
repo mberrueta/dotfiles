@@ -35,23 +35,10 @@ source $HOME/.bashrc
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
-export PATH="$PATH:$HOME/anaconda3/bin"
+# export PATH="$PATH:$HOME/anaconda3/bin"
+# export PATH="/usr/local/anaconda3/bin:$PATH"  # commented out by conda initialize
 export PATH="$PATH:/usr/bin:/usr/sbin:/bin:/sbin:/usr/local/sbin"
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/Users/mberrueta/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/Users/mberrueta/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/Users/mberrueta/anaconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/Users/mberrueta/anaconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
 
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
@@ -61,6 +48,9 @@ unset __conda_setup
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+
+[[ -f ~/.rvm/scripts/rvm ]] && source ~/.rvm/scripts/rvm
+
 
 # set tmux no wrap
 tput rmam 
@@ -93,3 +83,18 @@ export PATH="/opt/homebrew/opt/imagemagick@6/bin:$PATH"
 # set -o vi
 
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/usr/local/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/usr/local/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/usr/local/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/usr/local/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+

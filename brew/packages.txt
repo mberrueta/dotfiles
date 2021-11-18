@@ -12,6 +12,7 @@ golang-migrate
 gpg
 grc
 grpcurl
+htop
 htop # Improved top (interactive process viewer)
 imagemagick
 jq

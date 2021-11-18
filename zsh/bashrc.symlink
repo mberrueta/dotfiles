@@ -6,6 +6,8 @@ alias ls="ls -la"
 alias k="kubectl"
 alias weather='curl  wttr.in/buenos_aires' # weather
 alias git_log="git log --graph --pretty=format:'%C(auto)%h%d (%ci) %cn <%ce> %s'"
+alias git_files_log="git log --name-status --author=mberrueta | sort | uniq | grep -w '[M|A|D]'"
+alias git_remove_branches="git branch -D `git branch --merged | grep 'VA*' | xargs`"
 alias ..='cd ..'
 alias grep='grep --color=auto'
 alias tls='tmux ls'
@@ -16,9 +18,30 @@ alias open_api=~/.config/dotfiles/tmux/api_layout.sh
 alias open_api_scripts=~/.config/dotfiles/tmux/scripts_layout.sh
 alias vi=nvim
 alias vim=nvim
+alias gp='git pull --all'
+alias gcm='git checkout master'
+alias be="bundle exec"
+alias bec="be cucumber"
+alias ber="be rspec --format documentation"
+alias ber_routes="be rake routes"
+alias berr=ber_routes
+alias ber_console="be rails console"
+alias berc=ber_console
+alias ber_server="be rails server -b 0.0.0.0"
+alias bers=ber_server
+alias ber_migrate="be rake db:migrate:all"
+alias berm=ber_migrate
+alias ber_seed="be rake db:seed"
+alias seed=ber_seed
+alias ber_jobs="be rake eft3:recover_delayed_mq jobs:workoff"
+alias berj=ber_jobs
+alias rebuild_db="be rake db:drop db:create db:structure:load db:migrate:all db:seed"
+alias upload=transfer
+alias set_env_var="export $(cat ./.env | sed 's/#.*//g' | xargs )"
+alias kill_mica=ps awwwwux | grep mica | grep loginwindow | grep -v grep | awk "{ print \$2 }"
+alias kill_pe=ps awwwwux | grep pechy | grep loginwindow | grep -v grep | awk "{ print \$2 }"
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
 export PATH="$PATH:$HOME/go/bin"
 export PATH="$PATH:$HOME/bin"
 export PATH="$PATH:$HOME/code/platform-tools"
@@ -45,51 +68,87 @@ random() {
  shuf -i 0-9 -n 1
 }
 
-function api_pod_exec {
-  ktx prod-ny5-core
-  r=$(random)
-  pod=$(kubectl -n api get pod -l "app=api" -o jsonpath="{.items[$r].metadata.name}")
-
-  echo " kubectl -n api get pod -l \"app=api\" "
-  echo " kubectl -n api exec -it $pod -- /bin/bash "
-
- case "$1" in
-      "rc"      ) kubectl -n api exec -it $pod -- bundle exec rails c;;
-      "rails"   ) kubectl -n api exec -it $pod -- bundle exec rails c;;
-      *         ) kubectl -n api exec -it $pod -- /bin/bash;;
-  esac
+function load_env() {
+  export $(cat ./.env | sed 's/#.*//g' | xargs )
 }
 
-
-function kshell() {
-  ktx prod-ny5-core
-  case "$1" in
-      "bas"      ) KNS="bas";      KAPP="bas";      KSHELL="sh";;
-      "embs"     ) KNS="embs";     KAPP="embs" ;    KSHELL="sh";;
-      "killbill" ) KNS="killbill"; KAPP="killbill"; KSHELL="bash";;
-      "kaui"     ) KNS="kaui";     KAPP="kaui";     KSHELL="bash";;
-      *          ) echo "Usage: kshell bas|embs|killbill|kaui" >&2; return 1;;
-  esac
-  kubectl -n "$KNS" exec -ti "$(kubectl -n "$KNS" get pod -l "k8s-app=$KAPP" -o jsonpath='{.items[0].metadata.name}')" -c $KAPP -- /bin/${KSHELL}
+function backup_wd() {
+  # r=$(random)
+  pwd=$(pwd)
+  directory=$(basename $PWD)
+  rsync -a . "/tmp/$directory/"
+  cd "/tmp/$directory"
+  gp
+  export $(cat ./.env | sed 's/#.*//g' | xargs )
 }
 
+# gem install iStats
+function stats() {
 
-function bill_db_embs_pod {
-  ktx prod-dc13-bill
-  echo "Use:"
-  echo "export PGPASSWORD=\$EMBS_DATASTORE_PASSWORD"
-  echo "psql -w -U \$EMBS_DATASTORE_USER -p \$EMBS_DATASTORE_PORT -h \$EMBS_DATASTORE_HOST"
-  kubectl -n embs exec -it $(kubectl -n embs get pod -o jsonpath='{.items[0].metadata.name}') -c embs -- sh
+  ps aux | sort -nrk 3,3 | head -n 5
+watch "ps aux | sort -nrk 3,3 | head -n 5"
+
+  # htop -d 50 -u | head -n 12
+  top -b -n 1 | head -n 12
+ps ahux --sort=-c | awk 'NR<=5{printf"%s %6d %s\n",$3,$2,$11}'
+  istats
+  htop
+  top #  real-time sorted display of running processes such as memory and CPU usage
+  iostat #  I/O summary statistics for terminal, device and CPU operations
+  vm_stat #  Mach virtual memory statistics
+  diskutil list #  disk/volume capacity
+  df #  used/free space on mounted partitions
+  sudo fs_usage #  real-time file activity for both disk and network
+  nettop #  updated information about the network (a bit like top for net I/O)
+  w #  who is logged in and what they are doing; plus a brief system load summary
+  ifconfig and ipconfig #  network interface and IP protocol details
 }
 
+# function api_pod_exec {
+#   ktx prod-ny5-core
+#   r=$(random)
+#   pod=$(kubectl -n api get pod -l "app=api" -o jsonpath="{.items[$r].metadata.name}")
 
-function bill_db_bas_pod {
-  ktx prod-dc13-bill
-  echo "Use:"
-  echo "export PGPASSWORD=\$BAS_DATASTORE_PASSWORD"
-  echo "psql -w -U \$BAS_DATASTORE_USER -p \$BAS_DATASTORE_PORT -h \$BAS_DATASTORE_HOST"
-  kubectl -n bas exec -it $(kubectl -n bas get pod -o jsonpath='{.items[0].metadata.name}') -c bas -- sh
-}
+#   echo " kubectl -n api get pod -l \"app=api\" "
+#   echo " kubectl -n api exec -it $pod -- /bin/bash "
+
+#  case "$1" in
+#       "rc"      ) kubectl -n api exec -it $pod -- bundle exec rails c;;
+#       "rails"   ) kubectl -n api exec -it $pod -- bundle exec rails c;;
+#       *         ) kubectl -n api exec -it $pod -- /bin/bash;;
+#   esac
+# }
+
+
+# function kshell() {
+#   ktx prod-ny5-core
+#   case "$1" in
+#       "bas"      ) KNS="bas";      KAPP="bas";      KSHELL="sh";;
+#       "embs"     ) KNS="embs";     KAPP="embs" ;    KSHELL="sh";;
+#       "killbill" ) KNS="killbill"; KAPP="killbill"; KSHELL="bash";;
+#       "kaui"     ) KNS="kaui";     KAPP="kaui";     KSHELL="bash";;
+#       *          ) echo "Usage: kshell bas|embs|killbill|kaui" >&2; return 1;;
+#   esac
+#   kubectl -n "$KNS" exec -ti "$(kubectl -n "$KNS" get pod -l "k8s-app=$KAPP" -o jsonpath='{.items[0].metadata.name}')" -c $KAPP -- /bin/${KSHELL}
+# }
+
+
+# function bill_db_embs_pod {
+#   ktx prod-dc13-bill
+#   echo "Use:"
+#   echo "export PGPASSWORD=\$EMBS_DATASTORE_PASSWORD"
+#   echo "psql -w -U \$EMBS_DATASTORE_USER -p \$EMBS_DATASTORE_PORT -h \$EMBS_DATASTORE_HOST"
+#   kubectl -n embs exec -it $(kubectl -n embs get pod -o jsonpath='{.items[0].metadata.name}') -c embs -- sh
+# }
+
+
+# function bill_db_bas_pod {
+#   ktx prod-dc13-bill
+#   echo "Use:"
+#   echo "export PGPASSWORD=\$BAS_DATASTORE_PASSWORD"
+#   echo "psql -w -U \$BAS_DATASTORE_USER -p \$BAS_DATASTORE_PORT -h \$BAS_DATASTORE_HOST"
+#   kubectl -n bas exec -it $(kubectl -n bas get pod -o jsonpath='{.items[0].metadata.name}') -c bas -- sh
+# }
 
 # kill_ports 3000
 function kill_ports() {
@@ -103,18 +162,18 @@ function git_restore1() {
   git restore --source master~1  $1
 }
 
-function create_migrate_db() {
-  PGPASSWORD=postgres psql -h localhost -U postgres -p 5432 -c "CREATE DATABASE $1;"
-  PG_CONN=postgres://postgres:postgres@localhost:5432/$1?sslmode=disable
-  migrate -path=db/migrations/ -database ${PG_CONN} up
-}
+# function create_migrate_db() {
+#   PGPASSWORD=postgres psql -h localhost -U postgres -p 5432 -c "CREATE DATABASE $1;"
+#   PG_CONN=postgres://postgres:postgres@localhost:5432/$1?sslmode=disable
+#   migrate -path=db/migrations/ -database ${PG_CONN} up
+# }
 
-function remove_db() {
-  echo "if errors"
-  echo "PGPASSWORD=postgres psql -h localhost -U postgres -p 5432 -c \"SELECT pid FROM pg_stat_activity WHERE datname = '$1';\""
-  echo "docker exec -it it_db_1 kill -9 xxx"
-  PGPASSWORD=postgres psql -h localhost -U postgres -p 5432 -c "DROP DATABASE $1;"
-}
+# function remove_db() {
+#   echo "if errors"
+#   echo "PGPASSWORD=postgres psql -h localhost -U postgres -p 5432 -c \"SELECT pid FROM pg_stat_activity WHERE datname = '$1';\""
+#   echo "docker exec -it it_db_1 kill -9 xxx"
+#   PGPASSWORD=postgres psql -h localhost -U postgres -p 5432 -c "DROP DATABASE $1;"
+# }
 
 function clearDockerLog(){
   dockerLogFile=$(docker inspect $1 | grep -G '\"LogPath\": \"*\"' | sed -e 's/.*\"LogPath\": \"//g' | sed -e 's/\",//g')
@@ -123,6 +182,29 @@ function clearDockerLog(){
   screen -S dockerlogdelete -p 0 -X stuff $"$rmCommand"
   screen -S dockerlogdelete -p 0 -X stuff $'\n'
   screen -S dockerlogdelete -X quit
+}
+
+# transfer hello.txt
+function transfer(){
+  if [ $# -eq 0 ]; then
+    echo "No arguments specified.\nUsage:\n transfer <file|directory>\n ... | transfer <file_name>" >&2;
+    return 1;
+  fi;
+
+  if tty -s; then
+    file="$1"; file_name=$(basename "$file");
+    if [ ! -e "$file" ]; then
+      echo "$file: No such file or directory">&2;
+      return 1;
+    fi;
+
+    if [ -d "$file" ]; then
+      file_name="$file_name.zip" ,;(cd "$file"&&zip -r -q - .)|curl --progress-bar --upload-file "-" "https://transfer.sh/$file_name"|tee /dev/null,;
+    else cat "$file"|curl --progress-bar --upload-file "-" "https://transfer.sh/$file_name"|tee /dev/null;
+    fi;
+  else
+    file_name=$1;curl --progress-bar --upload-file "-" "https://transfer.sh/$file_name"|tee /dev/null;
+  fi;
 }
 
 tput smam # disables line wrapping. (trimmed text https://apple.stackexchange.com/questions/90392/disable-line-wrapping-for-output-in-the-terminal)
@@ -134,6 +216,7 @@ POWERLINE_BASH_SELECT=1
 # source /opt/homebrew/lib/python3.9/site-packages/powerline/bindings/bash/powerline.sh
 
 export HISTCONTROL=ignoreboth:erasedups
+
 
 
 # https://unix.stackexchange.com/questions/48713/how-can-i-remove-duplicates-in-my-bash-history-preserving-order
