@@ -32,3 +32,14 @@ OPT ⌘ \'      ZOOM inc
 ^ OPT DOWN    Windows down
 ^ OPT RIGHT   Windows right
 ^ OPT LEFT    Windows left
+
+## Safari
+
+SHIFT ⌘ \     Tab Overview
+OPT ⌘ L       Show downloads
+OPT ⌘ B       Edit bookmarks
+⌘ B           Show bookmarks
+⌘ Y           Show history
+Shift ⌘ L     Show downloads
+
+
