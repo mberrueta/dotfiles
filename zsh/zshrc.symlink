@@ -21,6 +21,7 @@ plugins=(
     zsh-autosuggestions
     docker
     docker-compose
+    git-open
 )
 
 # tooo slow
