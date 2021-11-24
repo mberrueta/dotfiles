@@ -41,7 +41,7 @@
                 },
                 "to": [
                   {
-                    "shell_command": "open -a 'Visual Studio Code.app'"
+                    "shell_command": "open -a 'Google Chrome.app'"
                   }
                 ],
                 "type": "basic"
@@ -170,6 +170,34 @@
                 "to": [
                   {
                     "shell_command": "open -a 'zoom.us.app'"
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "from": {
+                  "key_code": "f",
+                  "modifiers": {
+                    "mandatory": ["right_option"]
+                  }
+                },
+                "to": [
+                  {
+                    "shell_command": "open -a 'Firefox.app'"
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "from": {
+                  "key_code": "o",
+                  "modifiers": {
+                    "mandatory": ["right_option"]
+                  }
+                },
+                "to": [
+                  {
+                    "shell_command": "open -a 'Microsoft Outlook.app'"
                   }
                 ],
                 "type": "basic"
