@@ -18,39 +18,39 @@
                     {
                         "description": "Open Launcher",
                         "manipulators": [
-                            {
-                                "from": {
-                                    "key_code": "n",
-                                    "modifiers": {
-                                        "mandatory": [
-                                            "right_option"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "shell_command": "open -a 'notes.app'"
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "from": {
-                                    "key_code": "p",
-                                    "modifiers": {
-                                        "mandatory": [
-                                            "right_option"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "shell_command": "open -a 'Postman'"
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
+                          {
+                              "from": {
+                                  "key_code": "n",
+                                  "modifiers": {
+                                      "mandatory": [
+                                          "right_option"
+                                      ]
+                                  }
+                              },
+                              "to": [
+                                  {
+                                      "shell_command": "open -a 'notes.app'"
+                                  }
+                              ],
+                              "type": "basic"
+                          },
+                          {
+                              "from": {
+                                  "key_code": "p",
+                                  "modifiers": {
+                                      "mandatory": [
+                                          "right_option"
+                                      ]
+                                  }
+                              },
+                              "to": [
+                                  {
+                                      "shell_command": "open -a 'Postman'"
+                                  }
+                              ],
+                              "type": "basic"
+                          },
+                          {
                                 "from": {
                                     "key_code": "c",
                                     "modifiers": {

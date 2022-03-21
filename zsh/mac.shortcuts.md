@@ -19,6 +19,7 @@ OPT ⌘ SPACE   Finder search
 
 Shift ⌘ 4     Screen Shot
 Shift ⌘ 5     Screen Shot Opt
+Shift F10     Context Menu
 
 ⌘ Enter       FullScreen/Restore
 

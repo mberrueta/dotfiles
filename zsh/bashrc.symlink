@@ -1,45 +1,46 @@
 #!/bin/sh
 
-alias go=richgo
-alias coauth='printf "Co-authored-by: %s" "$(git log --pretty=format:"%an <%ae>" -1000 | sort | uniq | fzf)" | pbcopy'
-alias ls="ls -la"
-alias k="kubectl"
-alias weather='curl  wttr.in/buenos_aires' # weather
-alias git_log="git log --graph --pretty=format:'%C(auto)%h%d (%ci) %cn <%ce> %s'"
-alias git_files_log="git log --name-status --author=mberrueta | sort | uniq | grep -w '[M|A|D]'"
-alias git_remove_branches="git branch -D `git branch --merged | grep 'VA*' | xargs`"
+# alias open_api_scripts=~/.config/dotfiles/tmux/scripts_layout.sh
+# alias open_api=~/.config/dotfiles/tmux/api_layout.sh
+# alias tat='tmux attach -t' # tmux a -t myname
+# alias tkt='tmux kill-session -t' # tmux kill-session -t myname
+# alias tls='tmux ls'
+# alias tns='tmux new-session -s' # tmux new -s myname
 alias ..='cd ..'
-alias grep='grep --color=auto'
-alias tls='tmux ls'
-alias tns='tmux new-session -s' # tmux new -s myname
-alias tat='tmux attach -t' # tmux a -t myname
-alias tkt='tmux kill-session -t' # tmux kill-session -t myname
-alias open_api=~/.config/dotfiles/tmux/api_layout.sh
-alias open_api_scripts=~/.config/dotfiles/tmux/scripts_layout.sh
-alias vi=nvim
-alias vim=nvim
-alias gp='git pull --all'
-alias gcm='git checkout master'
 alias be="bundle exec"
 alias bec="be cucumber"
-alias ber="be rspec --format documentation"
-alias ber_routes="be rake routes"
-alias berr=ber_routes
 alias ber_console="be rails console"
-alias berc=ber_console
-alias ber_server="be rails server -b 0.0.0.0"
-alias bers=ber_server
-alias ber_migrate="be rake db:migrate:all"
-alias berm=ber_migrate
-alias ber_seed="be rake db:seed"
-alias seed=ber_seed
 alias ber_jobs="be rake eft3:recover_delayed_mq jobs:workoff"
+alias ber_migrate="be rake db:migrate:all"
+alias ber_seed="be rake db:seed"
+alias ber_server="be rails server -b 0.0.0.0"
+alias ber="be rspec --format documentation"
+alias berc=ber_console
 alias berj=ber_jobs
-alias rebuild_db="be rake db:drop db:create db:structure:load db:migrate:all db:seed"
-alias upload=transfer
-alias set_env_var="export $(cat ./.env | sed 's/#.*//g' | xargs )"
+alias berm=ber_migrate
+
+alias bers=ber_server
+alias gc='git checkout '
+alias gco='gc '
+alias git_coauth='printf "Co-authored-by: %s" "$(git log --pretty=format:"%an <%ae>" -1000 | sort | uniq | fzf)" | pbcopy'
+alias git_files_log="git log --name-status --author=mberrueta | sort | uniq | grep -w '[M|A|D]'"
+alias git_log="git log --graph --pretty=format:'%C(auto)%h%d (%ci) %cn <%ce> %s'"
+alias git_remove_branches="git branch -D `git branch --merged | grep 'VA*' | xargs`"
+alias go=richgo
+alias gp='git pull --all'
+alias grep='grep --color=auto'
+alias k="kubectl"
 alias kill_mica=ps awwwwux | grep mica | grep loginwindow | grep -v grep | awk "{ print \$2 }"
 alias kill_pe=ps awwwwux | grep pechy | grep loginwindow | grep -v grep | awk "{ print \$2 }"
+alias ls="ls -la"
+alias rebuild_db="be rake db:drop db:create db:structure:load db:migrate:all db:seed"
+alias seed=ber_seed
+alias set_env_var="export $(cat ./.env | sed 's/#.*//g' | xargs )"
+alias upload=transfer
+alias vi=nvim
+alias vim=nvim
+alias weather='curl  wttr.in/buenos_aires' # weather
+alias tiempo=weather
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/go/bin"
@@ -51,6 +52,7 @@ export GOPATH=~/go
 export PATH="$PATH:$GOPATH/bin"
 export PATH="$PATH:$HOME/bin/nvim/bin/"
 export PATH="~/.npm-global/bin:$PATH"
+export PATH="~/.local/bin:$PATH"
 
 # export COLUMNS=1000
 # export TERM=xterm-color
@@ -68,6 +70,10 @@ set histdup='all' # duplicate entries in the history
 
 random() {
  shuf -i 0-9 -n 1
+}
+
+function ber_routes() {
+  bundle exec rails routes | awk '{print $2 , $3}'| sed 's/(.:format)/ /g'
 }
 
 function load_env() {

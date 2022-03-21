@@ -99,3 +99,5 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
+[ -f "/Users/mberrueta/.ghcup/env" ] && source "/Users/mberrueta/.ghcup/env" # ghcup-env
