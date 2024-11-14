@@ -1,0 +1,49 @@
+{
+  "position": "top",
+  "modules-left": ["hyprland/workspaces"],
+  "modules-center": ["hyprland/window"],
+  "modules-right": ["cpu", "memory", "temperature", "network", "pulseaudio", "custom/weather", "clock"],
+  "clock": {
+    "format": "<span foreground='#f5c2e7'>   </span>{:%a %d %H:%M}",
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+  },
+  "network": {
+    "format": "{ipaddr}",
+    "format-linked": "{ifname} (No IP) ",
+    "format-disconnected": "<span size='13000' foreground='#f5e0dc'>  </span>Disconnected",
+    "tooltip-format-wifi": "Signal Strenght: {signalStrength}%"
+  },
+  "pulseaudio": {
+      "format": "{icon}  {volume}%",
+      "format-muted": "",
+      "format-icons": {
+          "default": ["", "", " "]
+      },
+      "on-click": "pavucontrol"
+  },
+
+  "cpu": {
+        "format": " {usage}%",
+    },
+    "memory": {
+        "format": " {}%"
+    },
+    "temperature": {
+        "thermal-zone": 2,
+        "hwmon-path": "/sys/class/hwmon/hwmon1/temp1_input",
+        "critical-threshold": 80,
+        "format-critical": "{icon} {temperatureC}°C",
+        "format": "{icon} {temperatureC}°C",
+        "format-icons": ["", "", ""]
+    },
+     "custom/weather": {
+        "format": "{}",
+        "interval": 300,
+        "return-type": "json",
+        // sleep before curl seems required because network might not yet be up
+        // this avoids having to wait until interval until the indicator comes
+        // back onlintty -e btop
+        "exec": "sleep 5 && curl -s 'wttr.in/ssa?format=%c+🌡%f+🌧+%p+🌕+%S+to+%s' |jq --unbuffered --compact-output -M -R '{text:.}'",
+    }
+
+}
