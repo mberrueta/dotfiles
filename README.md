@@ -8,6 +8,8 @@ Arch Linux & Mac dotfiles
  
 ## Arch
 
+![hyprland](assets/arch.png)
+
 Take a look to the packages to install in folder [arch]
 
 ``` sh
