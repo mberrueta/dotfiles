@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: ife
+# key: ife
+# condition: t
+# --
+<% if @$1 do %>
+$2
+<% else %>
+$3
+<% end %>

@@ -1,0 +1,53 @@
+# -*- mode: snippet -*-
+# name: bfs
+# key: bfs
+# condition: t
+# --
+defmodule BFS do
+  @moduledoc """
+  A general template for performing Breadth-First Search (BFS) in Elixir,
+  """
+
+  def bfs(grid, start_node, goal_node) do
+    grid_height = length(grid)
+    grid_width = length(List.first(grid))
+    queue = [{start_node, [start_node]}]
+    visited = MapSet.new([start_node])
+
+    bfs_loop(queue, visited, goal_node, grid, grid_height, grid_width)
+  end
+
+  defp bfs_loop([], _visited, _goal_node, _grid, _grid_height, _grid_width) do
+    {:error, :no_path}
+  end
+
+  defp bfs_loop([{current_node, path} | rest_queue], visited, goal_node, grid, grid_height, grid_width) do
+    if current_node == goal_node do
+      {:ok, Enum.reverse(path)}
+    else
+      {neighbors, updated_visited} = get_unvisited_neighbors(current_node, visited, grid, grid_height, grid_width)
+      updated_queue = rest_queue ++ Enum.map(neighbors, fn neighbor -> {neighbor, [neighbor | path]} end)
+      bfs_loop(updated_queue, updated_visited, goal_node, grid, grid_height, grid_width)
+    end
+  end
+
+  defp get_unvisited_neighbors({x, y}, visited, grid, grid_height, grid_width) do
+    directions = [{0, -1}, {-1, 0}, {0, 1}, {1, 0}]
+
+    neighbors =
+      directions
+      |> Enum.map(fn {dx, dy} -> {x + dx, y + dy} end)
+      |> Enum.filter(fn {nx, ny} ->
+        nx >= 0 and ny >= 0 and nx < grid_height and ny < grid_width and
+          not MapSet.member?(visited, {nx, ny}) and
+          is_walkable?(grid, nx, ny)
+      end)
+
+    updated_visited = MapSet.union(visited, MapSet.new(neighbors))
+    {neighbors, updated_visited}
+  end
+
+  defp is_walkable?(grid, x, y) do
+    Enum.at(Enum.at(grid, x), y) == 0
+  end
+end

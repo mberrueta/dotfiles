@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: define error
+# key: deferror
+# condition: t
+# --
+defmodule $1 do
+  defexception message: "$2"
+end
+raise $1 # ** ($1) default message
+raise $1, message: "custom message" # ** ($1) custom message

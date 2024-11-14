@@ -1,0 +1,22 @@
+# -*- mode: snippet -*-
+# name: agent
+# key: agent
+# condition: t
+# --
+defmodule MyAgent do
+  def start_link(initial_value) do
+    Agent.start_link(fn -> initial_value end, name: __MODULE__)
+  end
+
+  def increment() do
+    Agent.update(__MODULE__, &(&1 + 1))
+  end
+
+  def get() do
+    Agent.get(__MODULE__, & &1)
+  end
+end
+
+{:ok, _pid} = MyAgent.start_link(0)
+MyAgent.increment()
+IO.puts("Counter value: #{MyAgent.get()}")

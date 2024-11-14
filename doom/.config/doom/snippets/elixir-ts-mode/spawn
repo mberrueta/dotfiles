@@ -1,0 +1,15 @@
+# -*- mode: snippet -*-
+# name: spawn
+# key: spawn
+# condition: t
+# --
+# Consider Task, Agent or Genserver!!
+# Dont care result
+# spawn(fn -> IO.puts("Hello from a new process!") end)
+
+current = self()
+child = spawn(fn -> send(current, {self(), 1 + 2}) end)
+
+receive do
+  {^child, 3} -> IO.puts("Received 3 back")
+end

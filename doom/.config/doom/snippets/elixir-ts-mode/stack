@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: stack
+# key: stack
+# condition: t
+# --
+stack = []
+stack = [1 | stack]
+stack = [2 | stack]
+
+# Popping an item from the stack
+[top | stack] = stack # top Output: 2 # stack Output: [1]

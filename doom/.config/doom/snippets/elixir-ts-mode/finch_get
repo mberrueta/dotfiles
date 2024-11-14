@@ -1,0 +1,23 @@
+# -*- mode: snippet -*-
+# name: finch-get
+# key: finch-get
+# condition: t
+# --
+
+# Remember! Finch.start_link(name: MyFinch)
+
+headers = [{"Authorization", "Bearer #{@api_token}"}]
+url = "#{@base_url}/some_endpoint"
+
+case Finch.request(:get, url, headers, "", MyFinch) do
+    {:ok, %Finch.Response{status: 200, body: body}} ->
+    IO.puts("Success! Response body:")
+    IO.inspect(body)
+
+    {:ok, %Finch.Response{status: status, body: body}} ->
+    IO.puts("Request failed with status #{status}")
+    IO.inspect(body)
+
+    {:error, reason} ->
+    IO.puts("Request failed due to: #{inspect(reason)}")
+end

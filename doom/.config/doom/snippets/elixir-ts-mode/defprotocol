@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: def-protocol
+# key: def-protocol
+# condition: t
+# --
+defprotocol $1 do
+  def $1(data)
+end
+
+defimpl $1, for: $2 do
+  def $1(d), do: $3(d)
+end

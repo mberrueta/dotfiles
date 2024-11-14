@@ -1,0 +1,29 @@
+# -*- mode: snippet -*-
+# name: supervisor
+# key: supervisor
+# condition: t
+# --
+defmodule MyApp.Supervisor do
+  use Supervisor
+
+  def start_link(_) do
+    Supervisor.start_link(__MODULE__, :ok, name: __MODULE__)
+  end
+
+  def init(:ok) do
+    children = [
+      {Counter, 0} ## Start the Counter module with initial value
+    ]
+
+    # :one_for_one - if a child process terminates, only that process is restarted.
+    # :one_for_all - all other child processes are terminated and then all child
+    #                processes (including the terminated one) are restarted.
+    # :rest_for_one - the terminated child process and the rest of the children
+    #                 started after it, are terminated and restarted.
+
+
+    Supervisor.init(children, strategy: :one_for_one)
+  end
+end
+
+MyApp.Supervisor.start_link(:ok)

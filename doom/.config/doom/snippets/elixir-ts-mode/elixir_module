@@ -1,0 +1,14 @@
+
+# -*- mode: snippet -*-
+# name: elixir_module
+# key: modex
+# --
+defmodule ${1:ModuleName} do
+  @doc """
+  Documentation for `hello/0`.
+  """
+  def hello do
+    "Hello, World!"
+  end
+end
+

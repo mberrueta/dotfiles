@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: deque
+# key: deque
+# condition: t
+# --
+deque = :queue.new()
+deque = :queue.in_r(1, deque)  # Add to the right end
+deque = :queue.in_l(2, deque)  # Add to the left end
+
+{{:value, first}, deque} = :queue.out(deque)
+# Retrieve data from the right end
+{{:value, last}, deque} = :queue.out_r(deque)
+IO.puts(first)  # 2

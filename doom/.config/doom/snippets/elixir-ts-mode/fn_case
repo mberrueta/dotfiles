@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name:fn case
+# key: fn_case
+# group: Control Structures
+# --
+|> then(fn
+  {:ok, result} ->
+    $1
+
+  {:error, e} ->
+    {:error, "Wrong result ${2:#{e}}"}
+end)

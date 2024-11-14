@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: describe_test
+# key: describe
+# --
+describe "$1" do
+  setup [:setup_$2]
+  @describetag :$3
+
+  $0
+end

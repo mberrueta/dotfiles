@@ -1,0 +1,18 @@
+# -*- mode: snippet -*-
+# name: spawn_link
+# key: spawn_link
+# condition: t
+# --
+# Consider Task, Agent or Genserver!!
+
+# Main process will fail is this fail!
+
+# If u dont care result
+# spawn_link(fn -> IO.puts("Hello from a new process!") end)
+
+current = self()
+child = spawn_link(fn -> send(current, {self(), 1 + 2}) end)
+
+receive do
+  {^child, 3} -> IO.puts("Received 3 back")
+end

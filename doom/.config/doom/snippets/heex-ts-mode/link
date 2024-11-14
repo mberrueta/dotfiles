@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: link
+# key: link
+# condition: t
+# --
+<.link method="get" id="link-0"
+  href={~p"/"}
+  class="$1" >
+  $2
+</.link>

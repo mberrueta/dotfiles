@@ -1,0 +1,43 @@
+# -*- mode: snippet -*-
+# name: elixir_ets
+# key: ets
+# --
+defmodule ${1:ModuleName} do
+  use GenServer
+
+  ## Client API
+    def start_link(_), do: GenServer.start_link(__MODULE__, :ok, name: __MODULE__)
+    def set(key, value), do: GenServer.cast(__MODULE__, {:set, key, value})
+    def get(key), do: GenServer.call(__MODULE__, {:get, key})
+    def get(), do: GenServer.call(__MODULE__, {:get_all})
+
+  ## Server Callbacks
+
+  # Initialize the GenServer and create an ETS table
+  def init(:ok) do
+    # Create an ETS table with :named_table so it's accessible outside the GenServer
+    table = :ets.new(:${2:TableName}, [:named_table, :public, :set])
+    {:ok, table}
+  end
+
+  # Handle synchronous call for getting a value from the ETS table
+  def handle_call({:get, key}, _from, table) do
+    # Lookup the value in the ETS table
+    case :ets.lookup(table, key) do
+      [{^key, value}] -> {:reply, {:ok, value}, table}
+      [] -> {:reply, :error, table}
+    end
+  end
+
+  def handle_call({:get_all}, _from, table) do
+    :ets.tab2list(table)
+  end
+
+  # Handle asynchronous cast for setting a value in the ETS table
+  def handle_cast({:set, key, value}, table) do
+    # Insert or update the key-value pair in the ETS table
+    :ets.insert(table, {key, value})
+    {:noreply, table}
+  end
+end
+

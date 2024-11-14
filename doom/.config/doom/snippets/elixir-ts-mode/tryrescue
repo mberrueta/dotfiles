@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: try-rescue
+# key: try-rescue
+# condition: t
+# --
+try do
+  ... some code ...
+rescue
+  e ->
+    Logger.error(Exception.format(:error, e, __STACKTRACE__))
+    reraise e, __STACKTRACE__
+end

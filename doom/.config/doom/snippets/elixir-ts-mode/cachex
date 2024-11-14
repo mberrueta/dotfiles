@@ -1,0 +1,17 @@
+# -*- mode: snippet -*-
+# name: cachex
+# key: cachex
+# condition: t
+# --
+{:ok, _cache} = Cachex.start_link(name: :my_cache)
+
+# Put a value in the cache with a TTL (time-to-live) of 10 seconds
+Cachex.put(:my_cache, "my_key", "my_value", ttl: :timer.seconds(10))
+
+# Get the value from the cache
+case Cachex.get(:my_cache, "my_key") do
+  {:ok, nil} ->
+    IO.puts("Cache miss for key 'my_key'")
+  {:ok, value} ->
+    IO.puts("Cache hit for key 'my_key': #{value}")
+end

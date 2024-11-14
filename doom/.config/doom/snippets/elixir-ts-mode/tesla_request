@@ -1,0 +1,45 @@
+# -*- mode: snippet -*-
+# name: tesla_request
+# key: tesla_request
+# condition: t
+
+# --
+defmodule TeslaExample do
+  use Tesla
+
+  @api_token "YOUR_API_TOKEN_HERE"
+  @base_url "https://api.example.com"
+
+  # Define Tesla middleware
+  plug Tesla.Middleware.BaseUrl, @base_url
+  plug Tesla.Middleware.Headers, [{"Authorization", "Bearer #{@api_token}"}]
+  plug Tesla.Middleware.JSON  # Automatically encodes/decodes JSON
+
+    case get("/some_endpoint") do
+        {:ok, %Tesla.Env{status: 200, body: body}} ->
+        IO.puts("Success! Response body:")
+        IO.inspect(body)
+
+        {:ok, %Tesla.Env{status: status, body: body}} ->
+        IO.puts("Request failed with status #{status}")
+        IO.inspect(body)
+
+        {:error, reason} ->
+        IO.puts("Request failed due to: #{inspect(reason)}")
+    end
+
+    payload = %{key: "value", another_key: "another_value"}
+
+    case post("/some_endpoint", payload) do
+        {:ok, %Tesla.Env{status: 201, body: body}} ->
+        IO.puts("Post successful! Response body:")
+        IO.inspect(body)
+
+        {:ok, %Tesla.Env{status: status, body: body}} ->
+        IO.puts("Post request failed with status #{status}")
+        IO.inspect(body)
+
+        {:error, reason} ->
+        IO.puts("Post request failed due to: #{inspect(reason)}")
+    end
+end

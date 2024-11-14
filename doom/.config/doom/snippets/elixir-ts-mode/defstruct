@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: named-struct
+# key: named-struct
+# condition: t
+# --
+defmodule ${1:ModuleName} do
+  @type t :: %${1:ModuleName}{
+          ${2:field1}: ${3:type1},
+          ${4:field2}: ${5:type2},
+          ${6:field3}: ${7:type3}
+        }
+
+  defstruct ${2:field1}: ${8:default1}, ${4:field2}: ${9:default2}, ${6:field3}: ${10:default3}
+end

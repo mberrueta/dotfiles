@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: queue
+# key: queue
+# condition: t
+# --
+queue = :queue.new()
+queue = :queue.in(1, queue)
+queue = :queue.in(2, queue)
+
+{{:value, first}, queue} = :queue.out(queue)
+IO.puts(first)  # 1

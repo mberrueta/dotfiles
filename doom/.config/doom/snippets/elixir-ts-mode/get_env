@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: get_env
+# key: get_env
+# condition: t
+# --
+System.get_env("$1", "$2")

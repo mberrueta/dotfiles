@@ -1,0 +1,27 @@
+# -*- mode: snippet -*-
+# name: finch-post
+# key: finch-post
+# condition: t
+# --
+
+# Remember! Finch.start_link(name: MyFinch)
+headers = [
+    {"Authorization", "Bearer #{@api_token}"},
+    {"Content-Type", "application/json"}
+]
+
+url = "#{@base_url}/some_endpoint"
+payload = Jason.encode!(%{key: "value", another_key: "another_value"})
+
+case Finch.request(:post, url, headers, payload, MyFinch) do
+    {:ok, %Finch.Response{status: 201, body: body}} ->
+    IO.puts("Post successful! Response body:")
+    IO.inspect(body)
+
+    {:ok, %Finch.Response{status: status, body: body}} ->
+    IO.puts("Post request failed with status #{status}")
+    IO.inspect(body)
+
+    {:error, reason} ->
+    IO.puts("Post request failed due to: #{inspect(reason)}")
+end

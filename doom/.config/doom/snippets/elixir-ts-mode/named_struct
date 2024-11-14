@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: named-struct
+# key: named-struct
+# condition: t
+# --
+defmodule Types.Keywords do
+  defmodule Db do
+    @type t :: %Db{
+            name: String.t(),
+            tables: keyword()
+          }
+    defstruct name: "in_memory", tables: {}
+  end
