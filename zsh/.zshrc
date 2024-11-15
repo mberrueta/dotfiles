@@ -16,7 +16,7 @@ HISTDUP=erase
 # Alias definitions
 alias lt="eza --icons --color=always -a -s=type -l -T -L2"
 alias ls="eza --icons --color=always -a -s=type"
-alias ll="eza --icons --color=always -a -s=type -l"
+alias ll="eza --icons --color=always -a -s=type -l --group-directories-first"
 alias gs="git status"
 alias gc="git commit -am "
 alias gco="git checkout"
@@ -27,6 +27,8 @@ alias fzfprev='fzf -m --preview="bat --color=always {}"'
 alias fzf_nvim='nvim < $(fzf -m --preview="bat --color=always {}")'
 alias fzf_kill='kill -9 **'
 alias ollama_run="docker compose exec ollama ollama run llama3.2"
+alias mkdir='mkdir -p'
+
 
 
 # Ruby stuffs

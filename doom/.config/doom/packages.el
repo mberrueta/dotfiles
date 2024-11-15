@@ -20,8 +20,13 @@
 ;; Allow copy to system clipboard
 (package! clipetty)
 
-(package! treemacs-evil)
+
+(package! treemacs)
+(package! lsp-treemacs)
 (package! treemacs-projectile)
+(package! treemacs-icons-dired)
+(package! treemacs-evil)
+(package! treemacs-magit)
 
 (package! perspective)
 (package! helm-backup)
@@ -127,7 +132,6 @@
 (package! dart-mode)
 (package! lsp-mode)
 (package! lsp-dart)
-(package! lsp-treemacs)
 (package! flycheck)
 (package! company)
 (package! lsp-ui)

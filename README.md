@@ -1,5 +1,7 @@
 # dotfiles
 
+Thanks to https://github.com/prasanthrangan/hyprdots, so beautiful
+
 Arch Linux & Mac dotfiles
 
  ``` sh
@@ -14,7 +16,8 @@ Take a look to the packages to install in folder [arch]
 
 ``` sh
 sudo pacman -Sy --needed $(sed 's/#.*//' arch/pacman_manually_installed_packages.config | xargs)
-# needed avoid re installs
+# --needed         avoid re installs
+# --clean          remove old packages from cache
 
 git clone https://aur.archlinux.org/yay.git && cd yay
 makepkg -si

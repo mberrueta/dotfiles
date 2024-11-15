@@ -677,10 +677,10 @@
           :desc "Jump Code - Test"                 "t" #'rspec-toggle-spec-and-target
           )
 
-         (:prefix ("e" . "Exec")
-            :desc "Execute task"                     "e" #'bundle-exec
-            :desc "Bundle install"                   "i" #'bundle-install
-            :desc "Console"                          "c" #'bundle-console          )
+         ;; (:prefix ("e" . "Exec")
+         ;;    :desc "Execute task"                     "e" #'bundle-exec
+         ;;    :desc "Bundle install"                   "i" #'bundle-install
+         ;;    :desc "Console"                          "c" #'bundle-console          )
         )))
 
 
