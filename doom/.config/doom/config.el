@@ -143,8 +143,8 @@
 (global-set-key (kbd "C-S-l") 'move-end-of-line)
 
 ;; Map Shift+j/k (previous/next word)
-(global-set-key (kbd "C-S-j") 'backward-word)
-(global-set-key (kbd "C-S-k") 'forward-word)
+(global-set-key (kbd "C-S-B") 'backward-word)
+(global-set-key (kbd "C-S-W") 'forward-word)
 
 ;; Map Ctrl+Backspace to delete one word to the left
 (global-set-key (kbd "C-<backspace>") 'backward-kill-word)

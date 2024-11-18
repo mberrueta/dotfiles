@@ -36,4 +36,6 @@ return function(config)
     config.default_cursor_style = 'SteadyBar'
     config.tab_bar_at_bottom = true
     config.use_fancy_tab_bar = false
+
+    config.enable_scroll_bar = true
 end

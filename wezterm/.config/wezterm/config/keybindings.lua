@@ -56,11 +56,13 @@ return function(config)
             -- Map Shift+h/l to Ctrl+A/Ctrl+E (start/end of line)
             { key = 'H', mods = 'CTRL|SHIFT', action = wezterm.action.SendKey { key = 'a', mods = 'CTRL' } },
             { key = 'L', mods = 'CTRL|SHIFT', action = wezterm.action.SendKey { key = 'e', mods = 'CTRL' } },
+            -- Map Shift+j/k to scroll up/down
+            { key = 'K', mods = 'CTRL|SHIFT', action = act.ScrollByPage(-0.5)},
+            { key = 'J', mods = 'CTRL|SHIFT', action = act.ScrollByPage(0.5) },
 
-            -- Map Shift+j/k to Alt+B/Alt+F (previous/next word)
-            { key = 'J', mods = 'CTRL|SHIFT', action = wezterm.action.SendKey { key = 'b', mods = 'ALT' } },
-            { key = 'K', mods = 'CTRL|SHIFT', action = wezterm.action.SendKey { key = 'f', mods = 'ALT' } },
-
+            -- Map Shift+b/w to Alt+B/Alt+F (previous/next word)
+            { key = 'B', mods = 'CTRL|SHIFT', action = wezterm.action.SendKey { key = 'b', mods = 'ALT' } },
+            { key = 'W', mods = 'CTRL|SHIFT', action = wezterm.action.SendKey { key = 'f', mods = 'ALT' } },
             -- Delete one word to the left with CTRL + Backspace
             {key="Backspace", mods="CTRL", action=wezterm.action{SendString="\x1b\x7f"}},
             -- Delete one word to the right with CTRL + Delete
