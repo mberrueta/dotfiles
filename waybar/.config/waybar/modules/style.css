@@ -36,7 +36,7 @@ tooltip {
 }
 
 #workspaces button.active {
-    background: slate-300;
+    background: #BAC3D0;
     color: @wb-act-fg;
     margin-${x3}: ${w_margin}px;
     padding-${x3}: ${w_padact}px;
@@ -48,7 +48,6 @@ tooltip {
 
 #workspaces button:hover {
     border: 2px solid;
-    cursor: pointer;
     animation: ws_hover 20s ease-in-out 1;
     background-color: white;
     transition: all 0.3s cubic-bezier(.55,-0.68,.48,1.682);
