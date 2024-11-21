@@ -3,8 +3,8 @@
     border-radius: 0px;
     font-family: "JetBrainsMono Nerd Font";
     font-weight: bold;
-    font-size: ${s_fontpx}px;
-    min-height: 10px;
+    font-size: 15px;
+    min-height: 30px;
 }
 
 @import "theme.css";
@@ -36,7 +36,7 @@ tooltip {
 }
 
 #workspaces button.active {
-    background: @wb-act-bg;
+    background: slate-300;
     color: @wb-act-fg;
     margin-${x3}: ${w_margin}px;
     padding-${x3}: ${w_padact}px;
@@ -47,10 +47,21 @@ tooltip {
 }
 
 #workspaces button:hover {
-    background: @wb-hvr-bg;
-    color: @wb-hvr-fg;
+    border: 2px solid;
+    cursor: pointer;
     animation: ws_hover 20s ease-in-out 1;
+    background-color: white;
     transition: all 0.3s cubic-bezier(.55,-0.68,.48,1.682);
+}
+
+#workspaces button.urgent {
+    background-color: white;
+    color: #A52A2A;
+    animation: blinker 2s linear infinite;
+}
+
+@keyframes blinker {
+    50% {opacity: .5;}
 }
 
 #taskbar button {
