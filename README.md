@@ -31,7 +31,7 @@ In case of NVIDIA drivers needed
 Now with `stow` we will configure the tools
 
 ``` sh
-directories=("alacritty" "hyprland" "hyprlock" "hyde" "hyprmocha" "hyprpaper" "kitty" "zsh" "wezterm" "waybar" "wofi" "starship")
+directories=("alacritty" "hyprland" "hyprlock" "hyde" "hyprmocha" "hyprpaper" "kitty" "zsh" "wezterm" "waybar" "wofi" "starship" "dunst")
 
 for dir in "${directories[@]}"; do
   stow "$dir"
