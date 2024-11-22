@@ -9,7 +9,9 @@ return function(config)
     config.keys = {
         -- { key = 'c', mods = mod.SUPER_REV, action = 'ActivateCopyMode' }, Ctrl Shift X
         { key = 'q', mods = 'CTRL|SHIFT', action = 'QuickSelect' }, -- too Ctrl Shift Space
-        { key = 'F3', mods = 'NONE', action = act.ShowLauncher },
+        { key = "F1", mods = "NONE", action = act.ActivateCopyMode },
+        { key = 'F2', mods = 'NONE', action = act.ShowLauncherArgs({ flags = 'FUZZY|COMMANDS' }) },
+        { key = 'F3', mods = 'NONE', action = act.ShowLauncherArgs({ flags = 'FUZZY|KEY_ASSIGNMENTS' }) },
         { key = 'F4', mods = 'NONE', action = act.ShowLauncherArgs({ flags = 'FUZZY|TABS' }) },
         {
             key = 'u',
@@ -47,6 +49,11 @@ return function(config)
             }),
             },
 
+            -- Splits
+            { key = '-', mods = "CTRL", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
+            { key = '\\', mods = "CTRL", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
+            { key = "w", mods = "CTRL", action = act.CloseCurrentPane({ confirm = true }) },
+
             -- Map Ctrl+h/j/k/l to Left/Down/Up/Right Arrow keys
             { key = 'h', mods = 'CTRL', action = wezterm.action.SendKey { key = 'LeftArrow' } },
             { key = 'j', mods = 'CTRL', action = wezterm.action.SendKey { key = 'DownArrow' } },
@@ -76,5 +83,16 @@ return function(config)
             mods = 'NONE',
             action = wezterm.action.PasteFrom 'Clipboard',
         },
-    }
+			-- and make CTRL-Click open hyperlinks
+		{
+			event = { Up = { streak = 1, button = "Left" } },
+			mods = "CTRL",
+			action = act.OpenLinkAtMouseCursor,
+		},
+		{
+			event = { Down = { streak = 3, button = "Left" } },
+			action = wezterm.action.SelectTextAtMouseCursor("SemanticZone"),
+			mods = "NONE",
+		},
+	}
 end
