@@ -17,6 +17,9 @@
 (require 'clipetty)
 (global-clipetty-mode)
 (global-set-key (kbd "M-Y") 'consult-yank-from-kill-ring)
+(global-set-key (kbd "C-S-c") 'clipboard-kill-ring-save)  ; Copy
+(global-set-key (kbd "C-S-x") 'clipboard-kill-region)     ; Cut
+(global-set-key (kbd "C-S-v") 'clipboard-yank)           ; Paste
 
 (setq doom-font (font-spec :family "Caskaydia Cove Nerd Font" :size 15 )
     doom-variable-pitch-font (font-spec :family "Caskaydia Cove Nerd Font" :size 15))
@@ -516,6 +519,9 @@
               (side            . right)
               (reusable-frames . visible)
               (window-height   . 0.33)))
+
+
+(add-hook 'elixir-ts-mode-hook #'lsp)
 
 (defun elixir-create-function (start end)
   "Create the function at the end of the buffer"

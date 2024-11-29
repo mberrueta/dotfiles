@@ -45,6 +45,9 @@ alias zoom="QT_QPA_PLATFORM=wayland zoom"
 export ANDROID_SDK_ROOT=$HOME/Android/Sdk
 export CHROME_EXECUTABLE=/usr/bin/google-chrome-stable
 
+# Elixir stuffs
+export ERL_AFLAGS="-kernel shell_history enabled"
+
 # Path settings
 export PATH=$PATH:$HOME/.config/emacs/bin
 export PATH=$HOME/bin:/usr/local/bin:$PATH
