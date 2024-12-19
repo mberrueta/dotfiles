@@ -336,29 +336,12 @@
 
 (map! "M-/" `comment-line)
 
-;; OPTIONAL configuration
-(setq-default gptel-model "llama3.2" ;Pick your default model
-              gptel-backend (gptel-make-ollama "Ollama" ;Any name of your choosing
-                             :host "127.0.0.1:11434" ;Where it's running
-                             :stream t ;Stream responses
-                             :models '(llama3.2 codegemma qwen2.5-coder)))
-
-(use-package elysium
-  :custom
-  ;; Below are the default values
-  (elysium-window-size 0.33) ; The elysium buffer will be 1/3 your screen
-  (elysium-window-style 'vertical)) ; Can be customized to horizontal
-
-(use-package gptel
-  :custom
-  (gptel-model "llama3.2:latest")
-  :config
-  (defun read-file-contents (file-path)
-    "Read the contents of FILE-PATH and return it as a string."
-    (with-temp-buffer
-      (insert-file-contents file-path)
-      (buffer-string)))
-  )
+(setq
+ gptel-model 'llama3.2:latest
+ gptel-backend (gptel-make-ollama "Ollama"
+                 :host "127.0.0.1:11434"
+                 :stream t
+                 :models '(llama3.2:latest)))
 
 
 
