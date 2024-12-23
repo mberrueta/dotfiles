@@ -49,10 +49,10 @@ return function(config)
             }),
             },
 
-            -- Splits
+            -- Splits (ctrl+shift+arrow to move arround)
             { key = '-', mods = "CTRL", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
             { key = '\\', mods = "CTRL", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
-            { key = "w", mods = "CTRL", action = act.CloseCurrentPane({ confirm = true }) },
+            { key = "w", mods = "CTRL", action = act.Pane({ confirm = true }) },
 
             -- Map Ctrl+h/j/k/l to Left/Down/Up/Right Arrow keys
             { key = 'h', mods = 'CTRL', action = wezterm.action.SendKey { key = 'LeftArrow' } },
