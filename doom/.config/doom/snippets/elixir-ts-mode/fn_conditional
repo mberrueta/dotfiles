@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name:fn conditional
+# key: fn_conditional
+# group: Control Structures
+# --
+|> (fn socket ->
+    if $1,
+      do: assign(socket, $2, $3),
+      else: socket
+  end).()
+
